@@ -11,18 +11,26 @@ Ao longo desse material, serão abordados os seguintes assuntos:
 * Procedimentos Armazenados (Stored Procedures);  
 * Gatilhos (Triggers).
 
-## Implementando Regras de Negócio
+## <span style="color: #008bb9;">Implementando Regras de Negócio</span>
 As regras de negócio (regras aos quais os valores dos dados devem obedecer) podem serem implementadas no momento da criação das tabelas por meio das restrições check e unique.  
 
-### Restrição Check
+### Restrição Check  
+A restrição CHECK no SQL é usada para impor uma condição específica em uma coluna de uma tabela. Ela garante que os valores inseridos ou atualizados naquela coluna atendam a determinados critérios, ajudando a manter a integridade dos dados.  
 
-**Exemplo**: Um empréstimos só pode ser realizado se for maior do que 10.000,00:
+📌 **Exemplo**: Condição check que garante idades positivas:    
 ```sql
-create table emprestimo(
-nome_age_emp varchar(15) not null,
-numero_emp varchar(10) not null,
-valor_emp numeric(10,2),
-constraint pk_emprestimo primary key (numero_emp),
-constraint ck_valor check (**valor_emp > 10000**));
+CREATE TABLE Clientes (
+    ID INT PRIMARY KEY,
+    Nome VARCHAR(100),
+    Idade INT CHECK (Idade > 0) -- Garante que apenas maiores de 18 anos sejam cadastrados
+);
 ```
 
+📌 **Exemplo**: Impedindo que um salário seja **inferior** ou **superior** a um teto:  
+```sql
+CREATE TABLE Funcionarios (
+    ID INT PRIMARY KEY,
+    Nome VARCHAR(100),
+    Salario DECIMAL(10,2) CHECK (Salario BETWEEN 1000 AND 50000) -- Restringe o salário a um intervalo
+);
+```
