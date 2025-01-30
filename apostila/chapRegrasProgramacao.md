@@ -81,6 +81,18 @@ Geralmente, convém atribuir à sequência um nome de acordo com o uso a que se 
 
 Sequências são **frequentemente** utilizados para **produzir valores únicos** em colunas definidas como **chaves primárias**.  
 
-Neste caso, você pode enxergar essas sequências como campos do tipo "auto-incremento".  
+Neste caso, você pode enxergar essas sequências como campos do tipo _auto-incremento_.  
 
-Cada sequência deve ter um nome que a identifique. O padrão para o nome pode ser "sid_nome_da_tabela".  
+Cada sequência deve ter um nome que a identifique. O padrão para o nome pode ser _**sid_nome_da_tabela**_.  
+
+### Como criar uma SEQUENCE?
+Para criar uma SEQUENCE, usamos o comando CREATE SEQUENCE:  
+```sql
+CREATE SEQUENCE sid_minha_sequence
+START WITH 1  -- Primeiro valor gerado (opcional)
+INCREMENT BY 1  -- Incremento entre os valores (opcional)
+MINVALUE 1  -- Valor mínimo permitido (opcional)
+MAXVALUE 1000  -- Valor máximo permitido (opcional)
+CYCLE;  -- Faz a sequência reiniciar após atingir o MAXVALUE (opcional)
+```
+
