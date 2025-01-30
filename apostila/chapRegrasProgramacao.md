@@ -11,6 +11,11 @@ Ao longo desse material, serão abordados os seguintes assuntos:
 * Procedimentos Armazenados (Stored Procedures);  
 * Gatilhos (Triggers).
 
+Antes de começarmos,** vamos criar um novo database** para os testes desse capítulo:
+```sql
+CREATE DATABASE chapregras;
+```
+
 ## Implementando Regras de Negócio
 As regras de negócio (regras aos quais os valores dos dados devem obedecer) podem serem implementadas no momento da criação das tabelas por meio das restrições check e unique.  
 
@@ -103,9 +108,9 @@ CYCLE;  -- Faz a sequência reiniciar após atingir o MAXVALUE (opcional)
 **MAXVALUE 1000** → O maior valor permitido é 1000 (opcional).
 **CYCLE** → Quando atinge o MAXVALUE, ele reinicia para o MINVALUE.  
 
-### Usando as SEQUENCES
+### Usando as SEQUENCES (NEXTVAL)
 
-📌 **Exemplo**: **Usando** uma sequencia para tabela Usuários:
+📌 **Exemplo**: **Criando e usando** uma sequencia para tabela Usuários:
 ```sql
 
 create sequence sid_usuarios;
@@ -121,4 +126,33 @@ insert into usuarios
 values (nextval('minha_sequence'), 'joao');
 ```
 
+### Usando o SERIAL ou BIGSERIAL  
+O tipo de dado SERIAL no PostgreSQL é usado para criar chaves primárias **auto-incrementáveis de forma automática**. Ele internamente cria uma SEQUENCE, que gera os valores sequenciais para a coluna.  
 
+
+📌 **Exemplo**: **Criando e usando** uma sequencia para tabela Usuários:
+```sql
+
+CREATE TABLE diarios (
+    diarioID SERIAL/BIGSERIAL PRIMARY KEY -- serial ou bigserial vai depender da quantidade de registros,
+    descricao VARCHAR(100)
+);
+
+INSERT INTO diarios
+values (default, 'Banco de Dados');
+```
+
+#### Como funciona o SERIAL internamente?
+Quando usamos SERIAL, o PostgreSQL automaticamente faz três coisas:  
+
+1. Cria uma SEQUENCE associada
+2. Define a coluna como _DEFAULT nextval('sequence_name')_
+3. Vincula a sequence à tabela
+
+📌 **Exemplo**: Exemplo do que o **PostgreSQL cria internamente** ao usar SERIAL:
+```sql
+CREATE SEQUENCE usuarios_id_seq START WITH 1 INCREMENT BY 1;
+ALTER TABLE Usuarios ALTER COLUMN ID SET DEFAULT nextval('usuarios_id_seq');
+```
+
+### CURRVAL
