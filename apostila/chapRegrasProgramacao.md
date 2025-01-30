@@ -22,7 +22,8 @@ A restrição CHECK no SQL é usada para impor uma condição específica em uma
 CREATE TABLE Clientes (
     ID INT PRIMARY KEY,
     Nome VARCHAR(100),
-    Idade INT CHECK (Idade > 0) -- Garante que apenas maiores de 18 anos sejam cadastrados
+    Idade INT,
+    CONSTRAINT ck_Idade CHECK (Idade > 0) -- Garante que apenas maiores de 18 anos sejam cadastrados
 );
 ```
 
