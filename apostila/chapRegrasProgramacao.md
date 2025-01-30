@@ -96,3 +96,29 @@ MAXVALUE 1000  -- Valor máximo permitido (opcional)
 CYCLE;  -- Faz a sequência reiniciar após atingir o MAXVALUE (opcional)
 ```
 
+**Onde**:  
+**START WITH 1 ** → Começa a sequência a partir de 1.
+**INCREMENT BY 1** → Incrementa o valor em 1 a cada chamada.
+**MINVALUE 1** → O menor valor permitido é 1.
+**MAXVALUE 1000** → O maior valor permitido é 1000 (opcional).
+**CYCLE** → Quando atinge o MAXVALUE, ele reinicia para o MINVALUE.  
+
+### Usando as SEQUENCES
+
+📌 **Exemplo**: **Usando** uma sequencia para tabela Usuários:
+```sql
+
+create sequence sid_usuarios;
+
+SELECT NEXTVAL('sid_usuarios');
+
+CREATE TABLE Usuarios (
+    ID INT PRIMARY KEY,
+    Nome VARCHAR(100)
+);
+
+insert into usuarios
+values (nextval('minha_sequence'), 'joao');
+```
+
+
