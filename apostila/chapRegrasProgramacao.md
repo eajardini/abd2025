@@ -14,6 +14,7 @@ Ao longo desse material, serão abordados os seguintes assuntos:
 ## $\color{#FF0000}{Implementando Regras de Negócio}$  
 As regras de negócio (regras aos quais os valores dos dados devem obedecer) podem serem implementadas no momento da criação das tabelas por meio das restrições check e unique.  
 
+[some text](color: red)
 
 ### Restrição Check  
 A restrição CHECK no SQL é usada para impor uma condição específica em uma coluna de uma tabela. Ela garante que os valores inseridos ou atualizados naquela coluna atendam a determinados critérios, ajudando a manter a integridade dos dados.  
