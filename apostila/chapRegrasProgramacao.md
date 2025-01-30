@@ -11,7 +11,8 @@ Ao longo desse material, serão abordados os seguintes assuntos:
 * Procedimentos Armazenados (Stored Procedures);  
 * Gatilhos (Triggers).
 
-Antes de começarmos,**vamos criar um novo database** para os testes desse capítulo:
+
+✅ Antes de começarmos,**vamos criar um novo database** para os testes desse capítulo:
 ```sql
 CREATE DATABASE chapregras;
 ```
@@ -102,11 +103,11 @@ CYCLE;  -- Faz a sequência reiniciar após atingir o MAXVALUE (opcional)
 ```
 
 **Onde**:  
-**START WITH 1 ** → Começa a sequência a partir de 1.
-**INCREMENT BY 1** → Incrementa o valor em 1 a cada chamada.
-**MINVALUE 1** → O menor valor permitido é 1.
-**MAXVALUE 1000** → O maior valor permitido é 1000 (opcional).
-**CYCLE** → Quando atinge o MAXVALUE, ele reinicia para o MINVALUE.  
+**START WITH 1 ** → Começa a sequência a partir de 1.  
+**INCREMENT BY 1** → Incrementa o valor em 1 a cada chamada.  
+**MINVALUE 1** → O menor valor permitido é 1.  
+**MAXVALUE 1000** → O maior valor permitido é 1000 (opcional).  
+**CYCLE** → Quando atinge o MAXVALUE, ele reinicia para o MINVALUE.    
 
 ### Usando as SEQUENCES (NEXTVAL)
 
