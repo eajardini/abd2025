@@ -11,8 +11,10 @@ Ao longo desse material, serão abordados os seguintes assuntos:
 * Procedimentos Armazenados (Stored Procedures);  
 * Gatilhos (Triggers).
 
- <span style="color: red;">Implementando Regras de Negócio </span>  
+## <span style="color: red;">Implementando Regras de Negócio </span>  
 As regras de negócio (regras aos quais os valores dos dados devem obedecer) podem serem implementadas no momento da criação das tabelas por meio das restrições check e unique.  
+
+<span style="color:blue">some *blue* text</span>.
 
 ### Restrição Check  
 A restrição CHECK no SQL é usada para impor uma condição específica em uma coluna de uma tabela. Ela garante que os valores inseridos ou atualizados naquela coluna atendam a determinados critérios, ajudando a manter a integridade dos dados.  
