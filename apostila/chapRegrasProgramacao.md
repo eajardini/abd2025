@@ -11,7 +11,7 @@ Ao longo desse material, serão abordados os seguintes assuntos:
 * Procedimentos Armazenados (Stored Procedures);  
 * Gatilhos (Triggers).
 
-Antes de começarmos,** vamos criar um novo database** para os testes desse capítulo:
+Antes de começarmos,**vamos criar um novo database** para os testes desse capítulo:
 ```sql
 CREATE DATABASE chapregras;
 ```
