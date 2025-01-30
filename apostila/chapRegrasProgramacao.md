@@ -11,7 +11,7 @@ Ao longo desse material, serão abordados os seguintes assuntos:
 * Procedimentos Armazenados (Stored Procedures);  
 * Gatilhos (Triggers).
 
-## <span style="color: #008bb9;">Implementando Regras de Negócio</span>
+## <span style="color: red;">Implementando Regras de Negócio</span>
 As regras de negócio (regras aos quais os valores dos dados devem obedecer) podem serem implementadas no momento da criação das tabelas por meio das restrições check e unique.  
 
 ### Restrição Check  
