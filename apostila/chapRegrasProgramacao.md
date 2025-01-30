@@ -65,6 +65,7 @@ CREATE TABLE Pedidos (
 ### Exercícios
 1. Crie o modelo físico das relações correntista = {cpf, nome, data_nasc, cidade, uf} e conta_corrente {num_conta, cpf_correntista (fk), saldo}. Garanta as 
  seguintes regras de negócio:  
-1.1 ddd
+1.1. dddsdsd
+   1.1.1. dddxxxx
 
 
