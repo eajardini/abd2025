@@ -181,3 +181,10 @@ DROP SEQUENCE minha_sequence;
 DROP SEQUENCE sid_usuarios;
 ```
 
+#### Apagando uma SEQUENCE associada a uma tabela
+Se a sequência estiver vinculada a uma coluna (exemplo: ID com SERIAL), devemos remover a ligação primeiro:
+```sql
+ALTER TABLE diarios ALTER COLUMN diarioID DROP DEFAULT;
+```
+
+### 📝 Exercício de Sequências
