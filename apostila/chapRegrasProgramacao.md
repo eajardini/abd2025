@@ -195,10 +195,14 @@ ALTER TABLE diarios ALTER COLUMN diarioID DROP DEFAULT;
 1) Considere o seguinte modelo relacional baseado no DER da **figura acima**:
 ```sql
 obra = {id_obra(pk), codigo (unique), descricao}
+
 maquina = {id_maquina(pk), codigo(unique), marca}
+
 usa = {id_usa(pk), id_obra(fk), id_maquina(fk), data_do_uso}
 ```
 
-1. Crie sequências obra, maquina e usa.
-2. Insira duas obras e duas máquinas usando as sequência criadas.
-3. Atribua para cada obra as duas máquinas.
+    1.1. Crie sequências obra, maquina e usa.
+    1.2. Insira duas obras e duas máquinas usando as sequência criadas.
+    1.3. Atribua para cada obra as duas máquinas.
+
+## OPERAÇÕES COM CONJUNTOS EM SQL
