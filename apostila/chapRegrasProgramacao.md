@@ -189,7 +189,7 @@ ALTER TABLE diarios ALTER COLUMN diarioID DROP DEFAULT;
 
 ### 📝 Exercício de Sequências
 
-![image](https://github.com/user-attachments/assets/f9508ca0-7dde-4537-8f55-4c165a5015e0){ width: 200px; }
+![image](https://github.com/user-attachments/assets/f9508ca0-7dde-4537-8f55-4c165a5015e0) { width: 200px; }
 
 
 1) Considere o seguinte modelo relacional baseado no DER da **figura acima**:
