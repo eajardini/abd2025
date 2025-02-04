@@ -12,7 +12,7 @@ Ao longo desse material, serão abordados os seguintes assuntos:
 * Gatilhos (Triggers).
 
 
-✅ Antes de começarmos,**vamos criar um novo database** para os testes desse capítulo:
+Antes de começarmos,**vamos criar um novo database** para os testes desse capítulo:
 ```sql
 CREATE DATABASE chapregras;
 ```
@@ -24,7 +24,7 @@ As regras de negócio (regras aos quais os valores dos dados devem obedecer) pod
 A restrição CHECK no SQL é usada para impor uma condição específica em uma coluna de uma tabela. Ela garante que os valores inseridos ou atualizados naquela coluna atendam a determinados critérios, ajudando a manter a integridade dos dados.
 A restrição CHECK é útil para evitar dados inválidos no banco de dados, reduzindo a necessidade de verificações adicionais na aplicação. 
 
-📌 **Exemplo**: Condição check que garante idades positivas:    
+**Exemplo**: Condição check que garante idades positivas:    
 ```sql
 CREATE TABLE Clientes (
     ID INT PRIMARY KEY,
@@ -34,7 +34,7 @@ CREATE TABLE Clientes (
 );
 ```
 
-📌 **Exemplo**: Impedindo que um salário seja **inferior** ou **superior** a um teto:  
+**Exemplo**: Impedindo que um salário seja **inferior** ou **superior** a um teto:  
 ```sql
 CREATE TABLE Funcionarios (
     ID INT PRIMARY KEY,
@@ -47,7 +47,7 @@ CREATE TABLE Funcionarios (
 Para garantir a unicidade de valores de campos que não são chave primária, no caso **chaves candidatas**, usamos a restrição unique.  
 A restrição UNIQUE no SQL é usada para garantir que os valores de uma ou mais colunas em uma tabela sejam únicos, ou seja, não se repitam entre as linhas. Isso **ajuda a manter a integridade dos dados**, **evitando duplicações** indesejadas.  
 
-📌 **Exemplo**: Na implementação da tabela Aluno, a chave primária deve ser RA e o campo CPF deve ser único:  
+**Exemplo**: Na implementação da tabela Aluno, a chave primária deve ser RA e o campo CPF deve ser único:  
 ```sql
 create table aluno(
     ra integer,
@@ -58,7 +58,7 @@ create table aluno(
 );
 ```
 
-📌 **Exemplo**: Podemos garantir que a combinação de duas ou mais colunas seja única:  
+**Exemplo**: Podemos garantir que a combinação de duas ou mais colunas seja única:  
 ```sql
 CREATE TABLE Pedidos (
     ID INT PRIMARY KEY,
@@ -68,7 +68,7 @@ CREATE TABLE Pedidos (
 );
 ```
 
-### Exercícios
+### 📝 Exercícios
 1. Crie o modelo físico das relações **correntista** = {cpf, nome, data_nasc, cidade, uf} e conta_corrente {num_conta, cpf_correntista (fk), saldo}. Garanta as seguintes regras de negócio:  
     (a) Uma conta corrente só pode ser aberta com saldo mínimo **inicial de R$ 500,00**.  
     (b) Os correntistas devem ser maiores que 18 anos. Para isso, você deve comparar a data de nascimento com a data atual. No Postgres, para saber a idade atual, use a função
@@ -103,7 +103,7 @@ CYCLE;  -- Faz a sequência reiniciar após atingir o MAXVALUE (opcional)
 ```
 
 **Onde**:  
-**START WITH 1 ** → Começa a sequência a partir de 1.  
+**START WITH 1** → Começa a sequência a partir de 1.  
 **INCREMENT BY 1** → Incrementa o valor em 1 a cada chamada.  
 **MINVALUE 1** → O menor valor permitido é 1.  
 **MAXVALUE 1000** → O maior valor permitido é 1000 (opcional).  
@@ -111,7 +111,7 @@ CYCLE;  -- Faz a sequência reiniciar após atingir o MAXVALUE (opcional)
 
 ### Usando as SEQUENCES (NEXTVAL)
 
-📌 **Exemplo**: **Criando e usando** uma sequencia para tabela Usuários:
+**Exemplo**: **Criando e usando** uma sequencia para tabela Usuários:
 ```sql
 
 create sequence sid_usuarios;
@@ -124,14 +124,14 @@ CREATE TABLE Usuarios (
 );
 
 insert into usuarios
-values (nextval('minha_sequence'), 'joao');
+values (nextval('sid_usuarios'), 'joao');
 ```
 
 ### Usando o SERIAL ou BIGSERIAL  
 O tipo de dado SERIAL no PostgreSQL é usado para criar chaves primárias **auto-incrementáveis de forma automática**. Ele internamente cria uma SEQUENCE, que gera os valores sequenciais para a coluna.  
 
 
-📌 **Exemplo**: **Criando e usando** uma sequencia para tabela Usuários:
+**Exemplo**: **Criando e usando** uma sequencia para tabela Usuários:
 ```sql
 
 CREATE TABLE diarios (
@@ -150,10 +150,34 @@ Quando usamos SERIAL, o PostgreSQL automaticamente faz três coisas:
 2. Define a coluna como _DEFAULT nextval('sequence_name')_
 3. Vincula a sequence à tabela
 
-📌 **Exemplo**: Exemplo do que o **PostgreSQL cria internamente** ao usar SERIAL:
+**Exemplo**: Exemplo do que o **PostgreSQL cria internamente** ao usar SERIAL:
 ```sql
 CREATE SEQUENCE usuarios_id_seq START WITH 1 INCREMENT BY 1;
 ALTER TABLE Usuarios ALTER COLUMN ID SET DEFAULT nextval('usuarios_id_seq');
 ```
 
+### Obtendo o Último ID Inserido
+Após inserir um registro, podemos recuperar o ID gerado:
+```sql
+INSERT INTO diarios
+values (default, 'Estrutura de Dados'); RETURNING ID;
+
+```
+
 ### CURRVAL
+Traz o valor atual da sequence:
+```sql
+select currval('sid_usuario');
+```
+
+### Como apagar uma SEQUENCE?
+Para remover uma SEQUENCE no PostgreSQL, usamos o comando:
+```sql
+DROP SEQUENCE minha_sequence;
+```
+
+**Exemplo**: Para apagar a sequence *sid_usuarios*:
+```sql
+DROP SEQUENCE sid_usuarios;
+```
+
