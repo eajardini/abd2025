@@ -205,4 +205,13 @@ usa = {id_usa(pk), id_obra(fk), id_maquina(fk), data_do_uso}
     1.2. Insira duas obras e duas máquinas usando as sequência criadas.
     1.3. Atribua para cada obra as duas máquinas.
 
-## OPERAÇÕES COM CONJUNTOS EM SQL
+## _OPERAÇÕES COM CONJUNTOS EM SQL_
+
+A **Álgebra Relacional** é uma linguagem de consulta procedural (o usuário descreve os passos a serem executados) e formal a qual a técnica utilizada é fundamental para a extração de dados de um banco de dados, além de ser um conjunto de operações, os quais utilizam como recurso de entrada uma ou mais relações, produzindo então, uma nova relação.
+
+As principais operações da Álgebra Relacional são **Seleção, Projeção, União, Diferença, Intesecção, Produto Cartesiano, Junção e Divisão**.  As **operações da linguagem SQL são baseadas nas operação da Álgebra Relacional**. Foi visto na disciplina de Banco de Dados que as operações Projeção (comando Select) , Seleção (cláusula Where), Junção (operação Inner Join) e Produto Cartesiano (cláusula FROM sem a cláusula Where).
+
+Vamos usar um novo banco de dados. Agora, iremos rodar o script disponibilizado no repositório da disciplina:
+```sql
+nome do script: 00_criabaseBD_Postgres.sql
+```
