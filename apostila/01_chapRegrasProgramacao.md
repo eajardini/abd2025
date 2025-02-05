@@ -217,3 +217,50 @@ nome do script: 00_criabaseBD_Postgres.sql
 ```
 
 ### Operação União (Union e Unial All)
+
+A união de duas tabelas é formada pela adição dos registros de uma tabela aos registros de uma segunda tabela,
+para produzir uma terceira. Assim, o operador **union** serve para juntar ou unir dois comandos *selects*, um
+abaixo do outro. As linhas repetidas são ignoradas.
+
+**Exemplo 1:** Monte um relatório com os nomes dos instrutores e alunos cadastrados no banco de dados. Garanta
+que os **nomes repetidos sejam eliminados**:
+
+```sql
+SELECT inst_nome as Nome FROM instrutor
+UNION
+SELECT alu_nome as Nome FROM aluno;
+```
+
+**Exemplo 2:** Monte um relatório com os nomes dos clientes e vendedores cadastrados no banco de dados. Garanta
+que os **nomes repetidos sejam eliminados**:
+
+```sql
+SELECT nome_cliente as Nome FROM cliente
+UNION
+SELECT nome_vendedor as Nome FROM vendedor;
+```
+
+**Exemplo 3:** Refaça a consulta anterior mostrando também os nomes repetidos:
+```sql
+SELECT nome_cliente as Nome FROM cliente
+UNION ALL
+SELECT nome_vendedor as Nome FROM vendedor;
+```
+
+### Operação Interseção (comando Intersect)
+Esta operação atua sobre duas tabelas compatíveis em domínio e produz uma terceira contendo os **registros que aparecem simultaneamente** em ambas tabelas. O **operador In** redunda no mesmo resultado do operador *Intersect*. Entretanto, aquele não necessita da compatibilidade de domínio.
+
+**Exemplo 1:** Desenvolva uma consulta que preencha uma página html com os nomes homônimos de instrutores
+e alunos:
+```sql
+select inst_nome as nome from instrutor
+INTERSECT
+select alu_nome as nome from aluno;
+```
+
+**Exemplo 2:** A Grid de um Form de uma aplicação bancária desktop deve ser preenchida com os dados de uma consulta que traga os códigos do cliente que possuem conta (tabela Depositante) e também empréstimo (tabela Devedor). Use o operador Intersect:
+```sql
+select cod_cli_dep from depositante
+INTERSECT
+select cod_cli_dev from devedor;
+```
