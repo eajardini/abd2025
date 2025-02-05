@@ -2,7 +2,7 @@
 
 ## Introdução
 
-Nesse capítulo, iremos trabalhar com recurso utilizados tanto pelos administradores quanto pelos programadores.  
+Nesse capítulo, iremos trabalhar com recursos utilizados tanto pelos administradores quanto pelos programadores.  
 Ao longo desse material, serão abordados os seguintes assuntos:  
 
 * Implementação de Regras de Negócio no momento de criação das tabelas (*Check*);  
@@ -18,7 +18,7 @@ CREATE DATABASE chapregras;
 ```
 
 ## Implementando Regras de Negócio
-As regras de negócio (regras aos quais os valores dos dados devem obedecer) podem serem implementadas no momento da criação das tabelas por meio das restrições check e unique.  
+As regras de negócio (regras aos quais os valores dos dados devem obedecer) podem serem implementadas no momento da criação das tabelas por meio das restrições *check* e *unique*.  
 
 ### Restrição Check  
 A restrição CHECK no SQL é usada para impor uma condição específica em uma coluna de uma tabela. Ela garante que os valores inseridos ou atualizados naquela coluna atendam a determinados critérios, ajudando a manter a integridade dos dados.
@@ -44,7 +44,7 @@ CREATE TABLE Funcionarios (
 ```
 
 ### Restrição Unique
-Para garantir a unicidade de valores de campos que não são chave primária, no caso **chaves candidatas**, usamos a restrição unique.  
+Para garantir a unicidade de valores de campos que não são chave primária, no caso **chaves candidatas**, usamos a restrição *unique*.  
 A restrição UNIQUE no SQL é usada para garantir que os valores de uma ou mais colunas em uma tabela sejam únicos, ou seja, não se repitam entre as linhas. Isso **ajuda a manter a integridade dos dados**, **evitando duplicações** indesejadas.  
 
 **Exemplo**: Na implementação da tabela Aluno, a chave primária deve ser RA e o campo CPF deve ser único:  
@@ -215,3 +215,5 @@ Vamos usar um novo banco de dados. Agora, iremos rodar o script disponibilizado 
 ```sql
 nome do script: 00_criabaseBD_Postgres.sql
 ```
+
+### Operação União (Union e Unial All)
