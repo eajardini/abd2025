@@ -247,8 +247,17 @@ UNION ALL
 SELECT nome_vendedor as Nome FROM vendedor;
 ```
 
+**Exemplo 4:** Monte uma consulta utilizando o UNIOUN para trazer a descrição dos protudos e suas unidades. porém, traga apenas as unidades M e SAC
+```sql
+select descricao, unidade from produto
+where unidade = 'M'
+UNION
+select descricao, unidade from produto
+where unidade = 'SAC';
+```
+
 ### Operação Interseção (comando Intersect)
-Esta operação atua sobre duas tabelas compatíveis em domínio e produz uma terceira contendo os **registros que aparecem simultaneamente** em ambas tabelas. O **operador In** redunda no mesmo resultado do operador *Intersect*. Entretanto, aquele não necessita da compatibilidade de domínio.
+Esta operação atua sobre duas tabelas compatíveis em domínio e produz uma terceira contendo os **registros que aparecem simultaneamente** em ambas tabelas. O **operador _In_** redunda no mesmo resultado do operador *Intersect*. Entretanto, aquele não necessita da compatibilidade de domínio.
 
 **Exemplo 1:** Desenvolva uma consulta que preencha uma página html com os nomes homônimos de instrutores
 e alunos:
@@ -264,3 +273,37 @@ select cod_cli_dep from depositante
 INTERSECT
 select cod_cli_dev from devedor;
 ```
+
+### Operação Diferença (comando Except)
+A diferença de duas tabelas é uma terceira tabela contendo os registros que ocorrem na primeira tabela mas não ocorrem na segunda. O **operador _Not In_** redunda no mesmo resultado do operador **Except**. Entretanto, aquele não necessita da compatibilidade de domínio.
+
+**Exemplo 1:** Monte um relatório que traga o código do cliente que possui conta (depositante) mas que não possui empréstimo (devedor):
+```sql
+select cod_cli_dep from depositante
+EXCEPT
+select cod_cli_dev from devedor;
+```
+
+**Exemplo 2:** Monte a consulta em SQL para um relatório que traga os nomes dos instrutores que não são homônimos dos alunos (usando o **Except**).:
+```sql
+select inst_nome as nome from instrutor
+EXCEPT
+select alu_nome as nome from aluno;
+```
+
+### Compatibilidade de domínio
+Assim com as operações da Álgebra Relacional, as **operações sobre conjuntos** com os comandos SQL **exigem Compatibilidade de Domínio**, ou seja, campo texto embaixo de campo texto, campo numérico embaixo de campo numérico.
+
+
+**Exemplo 1:** Execute a consulta a seguir e discuta o porquê do resultado:
+
+```sql
+select nome_cliente as nome from cliente
+UNION
+select total_pedido as nome from pedido;
+```
+
+### 📝 Exercícios sobre Álgebra Relacional
+1) Monte uma consulta SQL para trazer os nomes dos clientes (tabela cliente) e dos vendedores (vendedor) e a respectiva quantidade de pedido (tabela pedido) que cada um realizou. Utilize o operador UNION para unir as duas consultas. Você tera que usar uma junção com pedido.
+
+   
