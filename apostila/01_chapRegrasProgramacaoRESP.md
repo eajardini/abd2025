@@ -131,3 +131,20 @@ values (nextval('sid_usa'), (select id_obra from obra
 
 select * from usa;
 ```
+
+
+### 📝 Exercícios sobre Álgebra Relacional
+1) Monte uma consulta SQL para trazer os nomes dos clientes (tabela cliente) e dos vendedores (vendedor) e a respectiva quantidade de pedido (tabela pedido) que cada um realizou. Utilize o operador UNION para unir as duas consultas. Você tera que usar uma junção com pedido:
+
+```sql
+select nome_cliente, count(cli.codigo_cliente)
+from cliente cli, pedido ped
+where cli.codigo_cliente = ped.codigo_cliente
+group by 1
+UNION
+select nome_vendedor, count(ven.codigo_vendedor)
+from vendedor ven, pedido ped
+where ven.codigo_vendedor = ped.codigo_vendedor
+group by 1;
+```
+   
