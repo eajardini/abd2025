@@ -323,3 +323,12 @@ Segue o DER e o modelo relacional para uso dos exewmplos de visões:
 
 
 ![DER exemplo para o uso de Views](./imagens/DER_Visoes.png)
+
+Modelo relacional do diagrama acima:
+```sql
+alunov = {id, ra, nome, ender, cidade}
+aluno_grad = {id, ano_curso}
+aluno_pos = {id, orientador}
+cursa = {cursa_alu_id, cursa_alu_discip, cursa_nota1, cursa_nota2, cursa_nota3, cursa_nota4}
+discip = (disc_id, disc_codigo, disc_descricao}
+```
