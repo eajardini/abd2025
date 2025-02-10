@@ -333,4 +333,19 @@ cursa = {cursa_id(pk), cursa_alu_id(fk), cursa_discip_id(fk), cursa_nota1, cursa
 discip = (disc_id(pk), disc_codigo, disc_descricao}
 ```
 
+### Criando e Modificando uma Visão
+Para criar ou alteramos uma visão executamos o seguinte comando:
 
+```sql
+create [or replace] view
+as
+subconsulta
+```
+**:rocket: Exemplo 1**: Desejamos criar uma visão em que aparece somente os alunos de Votuporanga:
+create view v_aluno_votuporanga
+as
+select *
+from alunov
+where cidade = ’Votuporanga’;
+Consultando
+select * from v_aluno_votuporanga;
