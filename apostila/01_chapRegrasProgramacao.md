@@ -326,9 +326,11 @@ Segue o DER e o modelo relacional para uso dos exewmplos de visões:
 
 Modelo relacional do diagrama acima:
 ```sql
-alunov = {id, ra, nome, ender, cidade}
-aluno_grad = {id, ano_curso}
-aluno_pos = {id, orientador}
-cursa = {cursa_alu_id, cursa_alu_discip, cursa_nota1, cursa_nota2, cursa_nota3, cursa_nota4}
-discip = (disc_id, disc_codigo, disc_descricao}
+alunov = {id(pk), ra, nome, ender, cidade}
+aluno_grad = {id(pk), ano_curso}
+aluno_pos = {id(pk), orientador}
+cursa = {cursa_id(pk), cursa_alu_id(fk), cursa_discip_id(fk), cursa_nota1, cursa_nota2, cursa_nota3, cursa_nota4}
+discip = (disc_id(pk), disc_codigo, disc_descricao}
 ```
+
+
