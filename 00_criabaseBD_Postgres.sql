@@ -945,7 +945,7 @@ orientador varchar(20)
 create table cursa (
 cursa_id integer primary key,
 cursa_alu_id integer not null, 
-cursa_alu_discip integer not null, 
+cursa_discip_id integer not null, 
 cursa_nota1 numeric(6,2), 
 cursa_nota2 numeric(6,2), 
 cursa_nota3 numeric(6,2), 
