@@ -306,4 +306,7 @@ select total_pedido as nome from pedido;
 ### 📝 Exercícios sobre Álgebra Relacional
 1) Monte uma consulta SQL para trazer os nomes dos clientes (tabela cliente) e dos vendedores (vendedor) e a respectiva quantidade de pedido (tabela pedido) que cada um realizou. Utilize o operador UNION para unir as duas consultas. Você tera que usar uma junção com pedido.
 
-   
+
+## VIEW (VISÃO)   
+Do **ponto de vista do negócio,** visões são elementos estratégicos que normalmente limitam o poder de acesso a informações. Do **lado técnico**, uma **visão é uma _tabela virtual_ resultante de uma consulta efetuada sobre uma ou mais tabelas**. A visão é baseada em uma ou mais tabelas ou outra view, logo uma 
+view não contém dados próprios mas sim dados provenientes de outas tabelas. Quando se aplica o comando SELECT em uma visão, o que o SGBD faz é executar o SELECT da própria visão.
