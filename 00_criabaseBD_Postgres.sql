@@ -943,6 +943,7 @@ orientador varchar(20)
 );
 
 create table cursa (
+cursa_id integer primary key,
 cursa_alu_id integer not null, 
 cursa_alu_discip integer not null, 
 cursa_nota1 numeric(6,2), 
@@ -983,19 +984,19 @@ insert into discip
 values (2, 'D2', 'Estrutura de Dados');
 
 insert into cursa
-values (1, 1, 5,6,8,3);
+values (1,1, 1, 5,6,8,3);
 
 insert into cursa
-values (1, 2, 6,6,6,6);
+values (2, 1, 2, 6,6,6,6);
 
 insert into cursa
-values (1, 3, 10,6,8,10);
+values (3, 1, 3, 10,6,8,10);
 
 insert into cursa
-values (2, 1, 6,1,8,10);
+values (4, 2, 1, 6,1,8,10);
 
 insert into cursa
-values (2, 2, 2,2,6,7.5);
+values (5, 2, 2, 2,2,6,7.5);
 
 --Inserindo tabelas para uso de sequencias
 
