@@ -71,11 +71,11 @@ CREATE TABLE Pedidos (
 
 ### 📝 Exercícios
 1. Crie o modelo físico das relações **correntista** = {cpf, nome, data_nasc, cidade, uf} e conta_corrente {num_conta, cpf_correntista (fk), saldo}. Garanta as seguintes regras de negócio:  
-    (a) Uma conta corrente só pode ser aberta com saldo mínimo **inicial de R$ 500,00**.  
-    (b) Os correntistas devem ser maiores que 18 anos. Para isso, você deve comparar a data de nascimento com a data atual. No Postgres, para saber a idade atual, use a função
+    (a) Os correntistas devem ser maiores que 18 anos. Para isso, você deve comparar a data de nascimento com a data atual. No Postgres, para saber a idade atual, use a função
    ```sql
    ((CURRENT_DATE - data_nasc)/365>=18) ou use a função (AGE(CURRENT_DATE, data_nasc) >= '18 Y’)).
-   ```
+   ```   
+    (b) Uma conta corrente só pode ser aberta com saldo mínimo **inicial de R$ 500,00**.  
 
 ## _Sequences_ (Sequências)
 Uma **_Sequence_** (sequência) é um objeto de banco de dados criado pelo usuário que pode ser compartilhado por vários usuários para gerar números inteiros exclusivos de acordo com regras especificadas no momento que a sequência é criada.  
