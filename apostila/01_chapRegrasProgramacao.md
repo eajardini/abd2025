@@ -27,10 +27,11 @@ A restrição CHECK é útil para evitar dados inválidos no banco de dados, red
 **Exemplo**: Condição check que garante idades positivas:    
 ```sql
 CREATE TABLE Clientes (
-    ID INT PRIMARY KEY,
+    ID INT,
     Nome VARCHAR(100),
     Idade INT,
-    CONSTRAINT ck_Idade CHECK (Idade > 0) -- Garante que apenas maiores de 18 anos sejam cadastrados
+    CONSTRAINT pk_clientes PRIMARY KEY (ID),
+    CONSTRAINT ck_Idade CHECK (Idade > 0) -- Garante que apenas clientes com pelo menos 01 ano sejam cadastrados
 );
 ```
 
@@ -50,9 +51,9 @@ A restrição UNIQUE no SQL é usada para garantir que os valores de uma ou mais
 **Exemplo**: Na implementação da tabela Aluno, a chave primária deve ser RA e o campo CPF deve ser único:  
 ```sql
 create table aluno(
-    ra integer,
+    ra integer, -- chave candidata
     nome varchar(40),
-    cpf varchar(12),
+    cpf varchar(12), -- chave candidata
     constraint pk_aluno primary key (ra),
     constraint un_cpf unique (cpf)
 );
