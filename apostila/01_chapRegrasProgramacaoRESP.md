@@ -3,23 +3,7 @@
 
 Crie o modelo físico das relações correntista = {cpf, nome, data_nasc, cidade, uf} e conta_corrente {num_conta, cpf_correntista (fk), saldo}. Garanta as seguintes regras de negócio:  
 
-**(a)** Uma conta corrente só pode ser aberta com saldo mínimo inicial de R$ 500,00.  
-```sql
-    create table conta_corrente (
-    num_conta integer,
-    cpf  varchar(11),
-    saldo numeric(7,2),
-    constraint pkcontacorrente primary key(num_conta),
-    constraint fkcontacorrente foreign key(cpf) references correntista,
-    constraint ck_saldo check(saldo >= 500));
-	
-	insert into conta_corrente
-	values (1,'123', 40);
-```
-
-
-
-**(b)** Os correntistas devem ser maiores que 18 anos. Para isso, você deve comparar a data de nascimento com a data atual.   
+**(a)** Os correntistas devem ser maiores que 18 anos. Para isso, você deve comparar a data de nascimento com a data atual.   
 No Postgres, para saber a idade atual, use a **função** _(cast((current_date - data_nasc)/360 as integer) >= 18)_:  
 ```sql
 create table correntista (
@@ -33,6 +17,19 @@ create table correntista (
 	
 insert into correntista
 values ('123', 'joao', '30/12/2000','Votuporanga', 'SP');
+```
+**(b)** Uma conta corrente só pode ser aberta com saldo mínimo inicial de R$ 500,00.  
+```sql
+    create table conta_corrente (
+    num_conta integer,
+    cpf  varchar(11),
+    saldo numeric(7,2),
+    constraint pkcontacorrente primary key(num_conta),
+    constraint fkcontacorrente foreign key(cpf) references correntista,
+    constraint ck_saldo check(saldo >= 500));
+	
+	insert into conta_corrente
+	values (1,'123', 40);
 ```
 
 ### Resposta exercícios sobre Sequences
