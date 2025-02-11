@@ -70,7 +70,8 @@ CREATE TABLE Pedidos (
 ```
 
 ### 📝 Exercícios
-1. Crie o modelo físico das relações **correntista** = {cpf, nome, data_nasc, cidade, uf} e **conta_corrente** {num_conta, cpf_correntista (fk), saldo}. Garanta as seguintes regras de negócio:  
+1. Crie o modelo físico das relações **correntista** = {<ins>cpf, nome, data_nasc, cidade, uf</ins>} e **conta_corrente** {<ins>num_conta, cpf_correntista (fk), saldo</ins>}.
+Garanta as seguintes regras de negócio:  
     (a) Os correntistas devem ser maiores que 18 anos. Para isso, você deve comparar a data de nascimento com a data atual. No Postgres, para saber a idade atual, use a função
    ```sql
    ((CURRENT_DATE - data_nasc)/365>=18) ou use a função (AGE(CURRENT_DATE, data_nasc) >= '18 Y’)).
