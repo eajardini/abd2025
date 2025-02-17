@@ -356,3 +356,47 @@ where cidade = 'Votuporanga';
 ```sql
 select * from v_aluno_votuporanga;
 ```
+
+**:rocket: Exemplo 2**: Monte um consulta SQL para o relatório que traga o nome do cliente e a quantidade de pedido que o mesmo realizou ordenado pelo o cliente que fez mais pedido para o que fez menos:  
+```sql
+create view v_cliente_pedido
+as
+select nome_cliente, count(num_pedido)
+from cliente cli, pedido ped
+where cli.codigo_cliente = ped.codigo_cliente
+group by 1
+order by 2 desc;
+```
+
+**:rocket: Exemplo 3**: Crie uma visão para um relatório que informe o **ra, nome e o ano** dos alunos de graduação:
+```sql
+create view v_aluno_grad
+as
+select ra, nome, ano_curso
+from alunov alu inner join aluno_grad alugrad on (alu.id = alugrad.id);
+```
+**:rocket: Exemplo 4**: Crie uma visão que informe os nomes dos alunos de pós-graduação e os nomes de seus respectivos orientadores:
+```sql
+create view v_aluno_pos
+as
+select nome, orientador
+from alunov Alu, aluno_pos alupos
+where alu.id = alupos.id;
+```
+
+**:rocket: Exemplo 5**: Crie uma visão para um relatório que informe o nome dos alunos; se o aluno for de graduação, informe o ano; se for de pós, informe seu orientador:
+```sql
+create view v_rel_aluno
+as
+select nome, ano_curso, orientador
+from alunov alu left join aluno_grad alugrad on (alu.id = alugrad.id)
+                left join aluno_pos alupos on (alu.id = alupos.id) ;
+```
+
+
+###  Removendo uma View
+Para remover uma view, utilize o comando drop view da seguinte maneira:
+```sql
+DROP VIEW v_aluno_votuporanga;
+```
+
