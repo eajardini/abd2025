@@ -646,3 +646,4 @@ SELECT classificar_numero(-5);  -- Retorna: 'O número é negativo'
 SELECT classificar_numero(0);   -- Retorna: 'O número é zero'
 
 ```
+### Consultas simples com o comando SELECT ... INTO
