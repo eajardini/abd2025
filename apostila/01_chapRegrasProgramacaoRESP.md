@@ -145,3 +145,40 @@ where ven.codigo_vendedor = ped.codigo_vendedor
 group by 1;
 ```
    
+### 📝 Exercícios sobre Visões
+1. De acordo com o DER da **figura presente na seção de Exercícios de Sequências**, desenvolva as seguintes visões:  
+    (a) Uma visão que mostre a descrição da obra, a máquina utilizada e a data do uso. Ordene pela descrição da obra.
+    ```sql
+        create or replace view v_obra_maquina
+	as
+	SELECT  obra.descricao, maquina.codigo, to_char(usa.data_uso, 'dd/MM/yyyy')
+    	FROM public.maquina, public.obra, public.usa
+	WHERE obra.id_obra = usa.id_obra
+          AND usa.id_maquina = maquina.id_maquina
+	ORDER BY maquina.codigo ASC;
+    ```
+    
+    (b) Uma visão que mostre a descrição da obra e a quantidade de máquinas utilizadas.
+    ```sql
+	create or replace view v_obra_maquina2
+    	as
+    	SELECT obra.descricao, count (usa.id_maquina)
+    	FROM  public.obra, public.usa
+    	WHERE obra.id_obra = usa.id_obra
+    	GROUP BY obra.descricao;
+    ```
+    (C) Uma visão que mostre o nome do cliente, prazo_entrega do pedido, a descricao do produto vendido, a quantidade e o valor_venda nos itens do pedido e o valor total por produto (item_pedido.valor_venda * item_pedido.quantidade):   
+    ```sql
+    create view bi_cliente_pedido
+    as
+    SELECT cliente.nome_cliente, pedido.prazo_entrega, produto.descricao,
+           produto.valor_venda, item_pedido.quantidade,
+           (produto.valor_venda * item_pedido.quantidade) "Valor Total"
+    FROM cliente, pedido, produto, Item_pedido
+    WHERE cliente.codigo_cliente = pedido.codigo_cliente
+      AND pedido.num_pedido = item_pedido.num_pedido
+      AND item_pedido.codigo_produto = produto.codigo_produto;
+
+
+
+
