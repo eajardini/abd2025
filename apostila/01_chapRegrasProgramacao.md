@@ -481,7 +481,7 @@ $$
 
 LANGUAGE plpgsql;
 ```
-**:rocket: Exemplo 1**: Primeira função que mostra a frase `Olá mundo!`:
+**:rocket: Exemplo**: Primeira função que mostra a frase `Olá mundo!`:
 ```sql
 create or replace function f_olamundo() returns text as
 $$
@@ -493,4 +493,31 @@ $$
 language PLPGSQL;
 
 Para executar: select f_olamundo();
+```
+
+### Usando Parâmetros nas Funções
+No PostgreSQL, podemos criar funções em PL/pgSQL que aceitam **parâmetros de entrada** e retornam valores específicos.
+
+```sql
+CREATE OR REPLACE FUNCTION nome_funcao(param1 tipo, param2 tipo)  
+RETURNS tipo_retorno AS $$  
+BEGIN  
+    -- Lógica da função  
+    RETURN valor;  
+END;  
+$$ LANGUAGE plpgsql;
+```
+
+**:rocket: Exemplo**: Retornado as posições de 2 a 5 do primeiro valores dos parâmetros de entrada, mas agora acessando o parâmetros pelo nome:
+```sql
+CREATE OR REPLACE FUNCTION f_substringPorNome(nomePar varchar, posicaoInicialPar integer) RETURNS varchar
+AS
+$$
+BEGIN
+    RETURN substring(nomePar,posicaoInicialPar);
+END;
+$$
+LANGUAGEplpgsql;
+
+uso: select f_substringPorNome('Votuporanga', 2);
 ```
