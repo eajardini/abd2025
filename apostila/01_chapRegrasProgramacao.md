@@ -424,9 +424,10 @@ values (’Francisco Silva’, ’Rua das Araras’, ’Votuporanga’);
 Perceba que houve erro, pois o **código_cliente** não estava presente na view. Apague a view (DROP TABLE) e recrie-a **adicionando esse campo** e tente inserir o cliente com o código 3210.
 
 ### 📝 Exercícios sobre Visões
-1. De acordo com o DER da figura 1.1, desenvolva as seguintes visões:
-(a) Uma visão que mostre a descrição da obra, a máquina utilizada e a data do uso. Ordene pela descrição
-da obra.
-(b) Uma visão que mostre a descrição da obra e a quantidade de máquinas utilizadas.
+1. De acordo com o DER da **figura presente na seção de Exercícios de Sequências**, desenvolva as seguintes visões:  
+    (a) Uma visão que mostre a descrição da obra, a máquina utilizada e a data do uso. Ordene pela descrição da obra.  
+    (b) Uma visão que mostre a descrição da obra e a quantidade de máquinas utilizadas.
+
+
 
 
