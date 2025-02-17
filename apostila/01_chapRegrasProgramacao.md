@@ -525,9 +525,124 @@ uso: select f_substringPorNome('Votuporanga', 2);
 ### Tipos de Dados de Variáveis
 As variáveis podem ter os seguintes tipos de dados:  
 * Boolean: recebe os valores True,False ou Null  
-• Integer: recebe valores inteiros.  
-• Numeric: recebe valores numéricos, tanto inteiros como decimais.  
-• Varchar: recebe valores alfanuméricos.  
-• Date: recebe valores do tipo data.  
-• %type: atribui à variável que está sendo criada os mesmos tipos de dados usados pela coluna que está sendo usada. Por exemplo, seu a variável codcli for declarada assim codcli cliente.codigocliente%type, ela terá o mesmo tipo de dados do camo codigocliente da tabela cliente.  
-• %rowtype: declara uma variável composta pelos campos de um registro de uma tabela. Exemplo, regcliente cliente%rowtype. A variável regcliente terá todos os campos da tabela cliente.
+* Integer: recebe valores inteiros.  
+* Numeric: recebe valores numéricos, tanto inteiros como decimais.  
+* Varchar: recebe valores alfanuméricos.  
+* Date: recebe valores do tipo data.  
+* %type: atribui à variável que está sendo criada os mesmos tipos de dados usados pela coluna que está sendo usada.
+    * Por exemplo, seu a variável codcli for declarada assim `codcli cliente.codigocliente%type`, ela terá o mesmo tipo de dados do campo *codigocliente* da tabela cliente.  
+* %rowtype: declara uma variável composta pelos campos de um registro de uma tabela. Exemplo, regcliente cliente%rowtype. A variável regcliente terá todos os campos da tabela cliente.
+
+
+
+**:rocket: Exemplo 1**: Criando uma função que recebe um número e retorna o dobro dele:
+```sql
+CREATE OR REPLACE FUNCTION dobrar_valor(valor NUMERIC) RETURNS NUMERIC
+AS
+$$  
+BEGIN  
+    RETURN valor * 2;  
+END;  
+$$ LANGUAGE plpgsql;
+
+Uso: SELECT dobrar_valor(10);  --Retorna 20
+
+```
+
+
+**:rocket: Exemplo 2**: Função que some três números passados como parâmetros:
+
+```sql
+CREATE OR REPLACE FUNCTION f_SomaTresPar(Valor1 numeric, Valor2 integer, Valor3 Numeric) RETURNS numeric
+AS
+$$
+    DECLARE Resultado numeric;
+BEGIN
+    resultado = Valor1+Valor2+Valor3;
+    RETURN resultado;
+END;
+$$
+LANGUAGE plpgsql;
+
+Uso: select f_SomaTresPar(2.2,4,6.3);
+```
+
+### Estrutura de Controle de Fluxo de Dados
+O comando IF permite a execução do fluxo de comandos baseados em certas condições. A sintaxe dele é:
+
+```sql
+1 - IF <condição> THEN
+    <comandos>
+END IF;
+
+2 - IF <condição> THEN
+    <comandos>
+ELSE
+    <comandos>
+END IF;
+
+3 - IF <condição> THEN
+    <comandos>
+ELSIF <condição> THEN
+    <comandos>
+ELSE
+    <comandos>
+END IF;
+```
+
+**:rocket: Exemplo 1**: Este exemplo verifica se um número é positivo e retorna uma mensagem:
+
+```sql
+CREATE OR REPLACE FUNCTION verificar_numero(n INT)  RETURNS TEXT AS $$  
+BEGIN  
+    IF n > 0 THEN  
+        RETURN 'O número é positivo';  
+    END IF;  
+    RETURN 'O número não é positivo';
+END;  
+$$ LANGUAGE plpgsql;
+
+usos:
+SELECT verificar_numero(5);  -- Retorna: 'O número é positivo'
+SELECT verificar_numero(-3); -- Retorna: 'O número não é positivo'
+```
+
+**:rocket: Exemplo 2**: Este exemplo verifica se um número é par ou ímpar.:
+
+```sql
+CREATE OR REPLACE FUNCTION verificar_paridade(n INT)  RETURNS TEXT AS $$  
+BEGIN  
+    IF n % 2 = 0 THEN  
+        RETURN 'O número é par';  
+    ELSE  
+        RETURN 'O número é ímpar';  
+    END IF;  
+END;  
+$$ LANGUAGE plpgsql;
+
+Usos:
+SELECT verificar_paridade(4);  -- Retorna: 'O número é par'
+SELECT verificar_paridade(7);  -- Retorna: 'O número é ímpar'
+```
+
+**:rocket: Exemplo 3**: Este exemplo classifica um número como positivo, negativo ou zero:
+```sql
+CREATE OR REPLACE FUNCTION classificar_numero(n INT)  
+RETURNS TEXT AS $$  
+BEGIN  
+    IF n > 0 THEN  
+        RETURN 'O número é positivo';  
+    ELSIF n < 0 THEN  
+        RETURN 'O número é negativo';  
+    ELSE  
+        RETURN 'O número é zero';  
+    END IF;  
+END;  
+$$ LANGUAGE plpgsql;
+
+usos:
+SELECT classificar_numero(10);  -- Retorna: 'O número é positivo'
+SELECT classificar_numero(-5);  -- Retorna: 'O número é negativo'
+SELECT classificar_numero(0);   -- Retorna: 'O número é zero'
+
+```
