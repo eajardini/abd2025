@@ -319,7 +319,7 @@ As **visões podem ser usadas** em:
 
 ### DER e Modelo Relacional para o uso de View
 
-:exclamation: O *script* da base de dados está dentro do arquivo **00_criabaseBD_Postgres.sql**.
+:exclamation: `O *script* da base de dados está dentro do arquivo **00_criabaseBD_Postgres.sql**.`
 
 Segue o DER e o modelo relacional para uso dos exewmplos de visões:  
 
