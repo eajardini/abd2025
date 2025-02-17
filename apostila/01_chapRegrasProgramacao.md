@@ -402,8 +402,31 @@ DROP VIEW v_aluno_votuporanga;
 
 ###  Regras para execução das operações DML em uma View
 As visões podem ser somente de leitura ou atualizáveis.  
-Não será possível modificar os dados em uma visão se ela contiver:  
-a. Funções de grupo (sum, count, etc)
-b. Uma cláusula GROUP BY
-c. A palavra-chave DISTINCT
-d. Todos os campos obrigatórios (not null) da tabela base devem está presentes na visão.
+**Não será possível modificar os dados em uma visão** se ela contiver:  
+a. Funções de grupo (_sum, count_, etc)  
+b. Uma cláusula _GROUP BY_  
+c. A palavra-chave _DISTINCT_  
+d. Todos os **campos obrigatórios** (_not null_) da tabela base devem está presentes na visão.  
+
+### Inserindo em uma visão
+Vamos criar uma view sobre a **tabela cliente** com os campos _nome_cliente, endereco e cidade_:  
+```sql
+create or replace view v_dados_cliente
+as
+select nome_cliente, endereco, cidade
+from cliente;
+```
+Tente fazer:  
+```sql
+insert into v_dados_cliente
+values (’Francisco Silva’, ’Rua das Araras’, ’Votuporanga’);
+```
+Perceba que houve erro, pois o **código_cliente** não estava presente na view. Apague a view (DROP TABLE) e recrie-a **adicionando esse campo** e tente inserir o cliente com o código 3210.
+
+### 📝 Exercícios sobre Visões
+1. De acordo com o DER da figura 1.1, desenvolva as seguintes visões:
+(a) Uma visão que mostre a descrição da obra, a máquina utilizada e a data do uso. Ordene pela descrição
+da obra.
+(b) Uma visão que mostre a descrição da obra e a quantidade de máquinas utilizadas.
+
+
