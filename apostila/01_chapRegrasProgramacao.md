@@ -319,8 +319,7 @@ As **visões podem ser usadas** em:
 
 ### DER e Modelo Relacional para o uso de View
 
-:exclamation: 
-```bash 
+:exclamation: ```bash 
 O *script* da base de dados está dentro do arquivo **00_criabaseBD_Postgres.sql**.
 ```  
 
