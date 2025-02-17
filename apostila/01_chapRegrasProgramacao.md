@@ -400,3 +400,10 @@ Para remover uma view, utilize o comando drop view da seguinte maneira:
 DROP VIEW v_aluno_votuporanga;
 ```
 
+###  Regras para execução das operações DML em uma View
+As visões podem ser somente de leitura ou atualizáveis.  
+Não será possível modificar os dados em uma visão se ela contiver:  
+• Funções de grupo (sum, count, etc)
+• Uma cláusula GROUP BY
+• A palavra-chave DISTINCT
+• Todos os campos obrigatórios (not null) da tabela base devem está presentes na visão.
