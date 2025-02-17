@@ -432,7 +432,50 @@ Perceba que houve erro, pois o **código_cliente** não estava presente na view.
 
 ## FUNÇÕES (_FUNCTIONS_) OU PROCEDIMENTOS ARMAZENADOS (_STORED PROCEDURES_)
 
+Quando uma aplicação solicita a execução de uma query SQL comum, todo o texto da mesma é enviado pela rede do computador cliente ao servidor em que será compilado e executado. Isso gera certa demora na resposta da query.  
 
+Para aumentar o desempenho em relação *queries*, os Sistemas Gerenciadores de Banco de Dados (SGBDs) - entre eles o Oracle, Postgres, SqlServer, etc, oferecem a capacidade de funções (*functions*) ou os procedimentos armazenados (*stored procedures*) como parte dos seus metadados.  
 
+**Funções podem ser entendidos** como uma sequência de comandos SQLs agrupados, que são executados dentro do SGBD.  
 
+O Postgres trabalha com Funções (*Functions*) ao invés de procedimentos. As funções são blocos PL/pgSQL nomeado que pode aceitar parâmetros (conhecidos como argumentos).  
 
+As Funções são utilizadas para executar uma ação. Elas contêm um cabeçalho, uma seção declarativa, uma seção executável e uma seção opcional de tratamento de exceções.  
+
+A função é chamada quando o seu nome é utilizado ou no comando SELECT ou na seção executável de outro bloco PL/pgSQL .  
+
+As Functions são compiladas e armazenados no banco de dados como objetos de esquema. Elas promovem a capacidade de manutenção e reutilização. Quando validados, elas podem ser usadas em várias aplicações.  
+
+**:blush: Vantagens**:
+1. Podem ser criadas rotinas especializadas altamente reutilizáveis, o que torna extremamente produtivo em ambientes do tipo cliente/servidor.  
+2. As rotinas rodam no servidor, liberando está carga do cliente.
+
+**:worried: Desvantagem**:
+1. Ficar restrito a sintaxe de um SGBD específico.
+
+### Criação de uma *Function*
+
+Pode usar a instrução SQL CREATE OR REPLACE FUNCTION para criar functions que são armazenados em um banco de dados Postgres.  
+Uma FUNCTION é similar a uma miniatura de programa: ela executa uma ação específica. Especifica-se o nome da função, seus parâmetros, suas variáveis locais e o bloco BEGIN-END que contém seu código e trata qualquer exceção.  
+
+Características do código de uma função:  
+1. *Blocos PL/pgSQL*: começam com uma instrução BEGIN, podendo ser precedidos da declaração de variáveis locais, e terminam com uma instrução END ou END.  
+2. *Nome do function*: A opção REPLACE indica que, se a function existir, ela será eliminado e substituído pela nova versão criada pela instrução.
+3. *Parâmetro*: representa o nome de um parâmetro.
+4. *Tipodedados*: especifica o tipo de dados do parâmetro, sem nenhuma precisão.
+
+Abaixo, um modelo de código de uma Função:
+```sql
+CREATE [OR REPLACE] FUNCTION NomeFunção [(parâmetro1 tipo_dado1,..., parâmetroN tipo_dadoN)] RE-
+TURNS Void | tipo_dado
+AS
+    [ DECLARE variável tipo_dado] -- Uma função pode ou não usar variáveis
+$$
+BEGIN
+    -- Códigos PlPgSQL
+    RETURN null | tipo_dado;
+END;
+$$
+
+LANGUAGE plpgsql;
+```
