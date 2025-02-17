@@ -402,6 +402,7 @@ DROP VIEW v_aluno_votuporanga;
 
 ###  Regras para execução das operações DML em uma View
 As visões podem ser somente de leitura ou atualizáveis.  
+
 **Não será possível modificar os dados em uma visão** se ela contiver:  
 a. Funções de grupo (_sum, count_, etc)  
 b. Uma cláusula _GROUP BY_  
@@ -466,16 +467,30 @@ Características do código de uma função:
 
 Abaixo, um modelo de código de uma Função:
 ```sql
-CREATE [OR REPLACE] FUNCTION NomeFunção [(parâmetro1 tipo_dado1,..., parâmetroN tipo_dadoN)] RE-
-TURNS Void | tipo_dado
+CREATE [OR REPLACE] FUNCTION NomeFunção [(parâmetro1 tipo_dado1,..., parâmetroN tipo_dadoN)] RETURNS Void | tipo_dado
 AS
     [ DECLARE variável tipo_dado] -- Uma função pode ou não usar variáveis
 $$
 BEGIN
-    -- Códigos PlPgSQL
+
+    -- Códigos PlPgSQL  
     RETURN null | tipo_dado;
+
 END;
 $$
 
 LANGUAGE plpgsql;
+```
+**:rocket: Exemplo 1**: Primeira função que mostra a frase `Olá mundo!`:
+```sql
+create or replace function f_olamundo() returns text as
+$$
+begin
+  --Função que mostra a frase Olá Mundo!;
+  return 'Olá Mundo!';
+end;
+$$
+language PLPGSQL;
+
+Para executar: select f_olamundo();
 ```
