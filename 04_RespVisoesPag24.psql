@@ -1,0 +1,43 @@
+A)
+create or replace view v_obra_maquina
+as
+SELECT 
+  obra.descricao, 
+  maquina.codigo, 
+  to_char(usa.data_uso, 'dd/MM/yyyy')
+FROM 
+  public.maquina, 
+  public.obra, 
+  public.usa
+WHERE 
+  obra.id_obra = usa.id_obra AND
+  usa.id_maquina = maquina.id_maquina
+ORDER BY
+  maquina.codigo ASC;
+
+B)
+create or replace view v_obra_maquina2
+as
+SELECT 
+  obra.descricao, count (usa.id_maquina)  
+FROM  
+  public.obra, 
+  public.usa
+WHERE 
+  obra.id_obra = usa.id_obra 
+group BY
+  obra.descricao;
+
+C)
+create view bi_cliente_pedido
+as
+SELECT 
+  cliente.nome_cliente, pedido.prazo_entrega, produto.descricao,
+  produto.valor_venda, item_pedido.quantidade,
+   (produto.valor_venda * item_pedido.quantidade) "Valor Total"  
+FROM 
+  public.cliente, public.pedido, public.produto, public.item_pedido
+WHERE 
+  cliente.codigo_cliente = pedido.codigo_cliente AND
+  pedido.num_pedido = item_pedido.num_pedido AND
+  item_pedido.codigo_produto = produto.codigo_produto;

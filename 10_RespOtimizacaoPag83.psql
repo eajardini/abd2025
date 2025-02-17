@@ -1,0 +1,13 @@
+Exercíos sobre otimização de BD
+
+1) 
+create index idx_pedido_cliente on pedido (codigo_cliente);
+
+create index idx_pedido_vendedor on pedido (codigo_vendedor);
+
+create index idx_itempedido_pedido on item_pedido (num_pedido);
+
+2) Errada
+
+3) Correta
+

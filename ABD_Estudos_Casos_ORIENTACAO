@@ -1,0 +1,12 @@
+NO exercício 02, está:
+
+"... É importante verificar a existência do paciente que irá fazer a cirurgia e caso o
+código do paciente exista, deve ser gerado ..."
+
+Leia-se
+
+"
+... É importante verificar a existência do paciente que irá fazer a cirurgia e caso o
+código do paciente, a mesma cirurgia e a mesma data já existam, deve ser gerado ...
+
+"

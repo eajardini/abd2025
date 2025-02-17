@@ -1,0 +1,89 @@
+--Exercícios Sequências
+
+create table obra (
+    id_obra bigint,
+    codigo varchar(5),
+    descricao varchar(10),
+    constraint pk_obra primary key (id_obra),
+    constraint un_obra_codigo unique (codigo)
+);
+
+create table maquina (
+    id_maquina bigint,
+    codigo varchar(5),
+    marca varchar(10),
+    CONSTRAINT pk_maquina primary key (id_maquina),
+    CONSTRAINT un_maquina_codigo unique (codigo)
+);
+
+create table usa (
+    id_usa bigint,
+    id_obra bigint,
+    id_maquina bigint,
+    data_uso date,
+    constraint pk_usa PRIMARY KEY (id_usa),
+    constraint fk_usa_obra foreign key (id_obra)
+                    REFERENCES obra,
+    constraint maquina foreign key (id_maquina)
+                    REFERENCES maquina
+);
+
+
+create SEQUENCE sid_obra;
+create SEQUENCE sid_maquina;
+create SEQUENCE sid_usa;
+
+select sequence_name
+from information_schema.sequences;
+
+-- Inserindo em Obra
+insert into obra 
+values (nextval('sid_obra'), 'o001', 'Obra 001')
+returning id_obra;
+
+insert into obra 
+values (nextval('sid_obra'), 'o002', 'Obra 002')
+returning id_obra;
+
+insert into obra 
+values (nextval('sid_obra'), 'o003', 'Obra 003'); -- Note que não usamos o returning
+
+
+-- Inserindo em Máquina
+insert into maquina
+values (nextval('sid_maquina'), 'm001', 'Maqu 001');
+
+insert into maquina
+values (nextval('sid_maquina'), 'm002', 'Maqu 002');
+
+-- inserindo em Usa 
+insert into usa 
+values (nextval('sid_usa'), (select id_obra from obra 
+                                   where codigo='o001'),
+                            (select id_maquina from maquina 
+                                   where codigo='m001'),
+                            '25/07/2019');
+
+insert into usa 
+values (nextval('sid_usa'), (select id_obra from obra 
+                                   where codigo='o001'),
+                            (select id_maquina from maquina 
+                                   where codigo='m002'),
+                            '25/07/2019');
+
+insert into usa 
+values (nextval('sid_usa'), (select id_obra from obra 
+                                   where codigo='o002'),
+                            (select id_maquina from maquina 
+                                   where codigo='m001'),
+                            '21/06/2019');
+
+insert into usa 
+values (nextval('sid_usa'), (select id_obra from obra 
+                                   where codigo='o002'),
+                            (select id_maquina from maquina 
+                                   where codigo='m002'),
+                            '21/06/2019');
+
+select * from usa;
+

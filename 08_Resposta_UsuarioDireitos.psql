@@ -1,0 +1,73 @@
+-- Exercícios Usuários e Direitos
+
+
+--1) Para se criar um usuário no postgre de nome userexe1, cuja senha seja '12345678' e que deve ser criptografada em md5(), é necessário digitar que comando.
+
+create user userexe1 with password '12345678';
+
+psql -h 172.17.0.1 -U userexe1 -d postgres
+
+--2) 2. Suponha que seja necessário bloquear o login do usuário userexe1, qual comando deveria ser dado para impedir que este usuário pudesse fazer login no Postgre? Tente fazer login com o usuário com o psql.
+
+alter user userexe1 nologin;
+
+-- 3) Agora, desbloqueie o usuário userexe1 e tente novamente fazer login com ele por meio do psql.
+
+alter user userexe1 login;
+
+
+--4)Você ficou ficou encarregado de criar o ambiente para a instalação de um software de controle de processos empresariais denominado SIGASYS. Assim, crie um banco de dados denominado de SIGASYS e execute nele o script da base de dados da disciplina.
+
+create database sigasys
+encoding 'utf-8';
+
+ALTER DATABASE sigasys 
+SET datestyle TO 'ISO, DMY';
+
+\c sigasys
+
+\i ~/tmp/20201110_criabaseBD_Postgres.sql
+
+--5) Uma vez criado o ambiente no exercício anterior, você irá executar as seguintes tarefas:
+
+ - a) Criar um usuário denominado analista que possui somente o direito de visualizar os dados das tabelas de CLIENTE e VENDEDORES. O usuário não deverá poder criar, atualizar ou deletar nenhum objeto do banco. 
+
+create user analista password 'postdba';
+
+grant select on cliente, vendedor to analista;
+
+ - b) Criar um usuário denominado vendedor que possui os direitos de:
+  - atualizar, criar e visualizar os dados na tabela de CLIENTE; 
+  - criar, atualizar, visualizar e apagar dados da tabela de PEDIDO;
+  - atualizar, criar e visualizar os dados na tabela de ITEM_PEDIDO e 
+  - atualizar e visualizar dados da tabela PRODUTO.
+  
+create user vendedor password 'postdba';
+grant select, update, insert, delete on pedido to vendedor;
+grant select, update, insert  on item_pedido to vendedor;
+grant select, update on produto to vendedor;
+
+
+ - c) Criar um usuário gerente podendo 
+  - visualizar, inserir, atualizar e deletar dados das tabelas do banco de dados SIGASYS.
+  
+create user gerente password 'postdba';
+
+-- o usuário postges deve estar dentro do banco de dados SIGASYS
+grant ALL PRIVILEGES on ALL TABLES IN SCHEMA PUBLIC to gerente;
+
+-- 6) Revogue os direitos do usuário analista.
+
+revoke all on cliente from analista;
+
+-- 7) Crie um database de nome dbvendedor cujo proprietário seja o usuário vendedor já criado anteriormente. Após criar o database, entre nele com o usuário vendedor e crie uma tabela qualquer.
+
+create database dbvendedor owner=vendedor;
+psql -h 172.17.0.1 -U userexe1 -d dbvendedor;
+create table teste (id integer);
+
+
+-- 8) Apague (drop) o usuário userexe1. Caso ele possua objetos,  atribua a propriedade a outro usuário.
+
+revoke ALL PRIVILEGES ON ALL TABLES IN SCHEMA public from userexe1;
+drop user userexe1;

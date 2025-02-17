@@ -1,0 +1,36 @@
+--Exercícios Algebra Relacional
+
+--1)
+
+select codigo_cliente, nome_cliente from cliente
+union
+select codigo_vendedor, nome_vendedor from vendedor;
+
+--2)
+explain
+select descricao
+from produto
+where codigo_produto in (select codigo_produto from produto
+                         INTERSECT
+                         select codigo_produto from item_pedido);
+ou 
+
+explain
+select descricao from produto
+intersect
+select descricao from produto p inner join item_pedido ip
+                                    on (p.codigo_produto = ip.codigo_produto);
+
+--3)
+Com except
+explain
+SELECT codigo_vendedor from vendedor
+EXCEPT
+select codigo_vendedor from pedido;
+
+com not in
+EXPLAIN
+select codigo_vendedor
+from vendedor
+where codigo_vendedor not in (select codigo_vendedor from pedido);
+

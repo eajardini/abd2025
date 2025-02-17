@@ -1,0 +1,30 @@
+-- Exercícios Cópias de segurança
+
+-- Criando os databases
+
+CREATE DATABASE bdbackup1
+    WITH 
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    CONNECTION LIMIT = -1;
+
+ALTER DATABASE bdbackup1 SET datestyle TO 'ISO, DMY';
+
+CREATE DATABASE bdbackup2
+    WITH 
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    CONNECTION LIMIT = -1;
+
+ALTER DATABASE bdbackup2 SET datestyle TO 'ISO, DMY';
+
+-- 1)
+\i /home/aluno/aulaABDA4/20201110_criabaseBD_Postgres.sql 
+
+--2) 
+pg_dump -h 172.17.0.1 -U postgres -v -Fc -f ~/tmp/20210112_bdbackup.bkp backup1
+
+--3)
+
+pg_restore -h 172.17.0.1 -U postgres -v -d bdbackup1 -Fc 20210112_bdbackup.bkp -t vendedor
+
