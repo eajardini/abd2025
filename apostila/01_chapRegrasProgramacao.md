@@ -169,7 +169,7 @@ values (default, 'Estrutura de Dados') RETURNING diarioid;
 ### CURRVAL
 Traz o valor atual da sequence:
 ```sql
-select currval('sid_usuario');
+select currval('sid_usuarios');
 ```
 
 ### Como apagar uma SEQUENCE?
