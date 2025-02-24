@@ -532,6 +532,7 @@ As variáveis podem ter os seguintes tipos de dados:
 * %type: atribui à variável que está sendo criada os mesmos tipos de dados usados pela coluna que está sendo usada.
     * Por exemplo, seu a variável codcli for declarada assim `codcli cliente.codigocliente%type`, ela terá o mesmo tipo de dados do campo *codigocliente* da tabela cliente.  
 * %rowtype: declara uma variável composta pelos campos de um registro de uma tabela. Exemplo, regcliente cliente%rowtype. A variável regcliente terá todos os campos da tabela cliente.
+* Table: A cláusula RETURNS TABLE permite que uma função em PL/pgSQL retorne múltiplas colunas e múltiplas linhas, como se fosse o resultado de uma consulta SQL.
 
 
 
@@ -649,3 +650,49 @@ SELECT classificar_numero(0);   -- Retorna: 'O número é zero'
 ### Consultas simples com o comando SELECT ... INTO
 O comando SELECT ... INTO possibilita que usemos valores recuperados das tabelas do banco de dados dentro das funções. Desta forma, muitas das rotinas que são desenvolvidas nas linguagens de programação e que acessam muitos dados podem ser convertidas para dentro do SGBD. 
 A sintaxe desse comando é:
+
+```sql
+select campo1, campo2,... ,campoN INTO var1, var2,... , varN
+[from tabela]
+```
+
+**:rocket: Exemplo 1**: Projete uma função que receba dois números como parâmetro e devolva a soma deles. Realize a soma com o comando *select*:
+```sql
+CREATE OR REPLACE FUNCTION f_SomaSelect (num1 numeric, num2 numeric) RETURNS numeric
+AS
+$$
+    DECLARE retval numeric;
+BEGIN
+    SELECT num1 + num2 INTO retval;
+    RETURN retval;
+END;
+$$ LANGUAGE plpgsql;
+
+uso: select (4,6);
+```
+
+**:rocket: Exemplo 2**: Desenvolva uma função que receba o código do cliente como parâmetro e devolva o nome e o endereço concatenados:
+```sql
+CREATE OR REPLACE FUNCTION f_Nome_Endereco (codcliente integer) RETURNS text
+AS $$
+DECLARE nomecli varchar;
+        enderecocli varchar;
+BEGIN
+    SELECT nome_cliente, endereco INTO nomecli, enderecocli
+    FROM cliente
+    WHERE codigo_cliente = codcliente;
+
+    RETURN nomecli || ' - ' || enderecocli ;
+END;
+$$
+LANGUAGE plpgsql;
+
+uso: SELECT f_Nome_Endereco (720);
+```
+
+### 📝 A) Exercícios sobre Funções
+1. Implemente um procedimento que receba 4 parâmetros. Os dois primeiros serão números que sofrerão uma das quatro operações básicas da matemática adição, subtração, multiplicação e divisão; o terceiro parâmetro será uma variável que armazenará o resultado da operação e por fim, o quarto parâmetro indicará qual  será a operação realizada. Após implementar, teste o procedimento e veja se está funcionando corretamente.
+   
+2. Projete uma função que informado o código do cliente por parâmetro, encontre o valor total das compras desse cliente. Como retorno, a função deve informar o nome do cliente concatenado com o valor da compra. Você deverá usar as tabelas cliente, pedido, item_pedido e produto.
+
+   
