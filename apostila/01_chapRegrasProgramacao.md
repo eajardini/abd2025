@@ -696,3 +696,26 @@ uso: SELECT f_Nome_Endereco (720);
 2. Projete uma função que informado o código do cliente por parâmetro, encontre o valor total das compras desse cliente. Como retorno, a função deve informar o nome do cliente concatenado com o valor da compra. Você deverá usar as tabelas cliente, pedido, item_pedido e produto.
 
    
+### Usando Comandos DML em Funções
+As funções permite-nos usar comandos do tipo DML (Insert, Update e Delete) para manipulação de dados. A **vantagem de usarmos comandos DML** nas funções, é que podemos **diminuir ainda mais o tráfego de dados pela rede**, visto que você pode lêr dados de uma tabela e inseri-lo em outras sem a necessidade desses dados fazerem acesso ao meio de comunicação.
+
+**:rocket: Exemplo 1**: Implemente uma função que receba os valores por parâmetro e os insira na tabela de funcionários (*seq_funcionario*). Como a chave primária da referida tabela é um ID, utilize a sequência criada na **seção sobre sequencias**. Repare no código a seguir o **comando RETURNING ... INTO ...** usado junto com o comando Insert. Ele possibilita que uma variável - no caso do exemplo, a variável resultado - receba o valor de um campo
+inserido. Isso possibilita saber se houve êxito ou não durante a operação.
+
+```sql
+create or replace function f_InsereFuncionario (cpf varchar, nome varchar, endereco varchar, cidade varchar, salario numeric) returns Integer
+AS
+$$
+Declare
+    resultado integer;
+Begin
+    insert into seq_funcionario (id_func , cpf, nome, ender, cidade, salario)
+    values (nextval('sid_func'), cpf, nome, endereco, cidade, salario)
+    RETURNING id_func INTO resultado;
+
+    return resultado;
+end;
+$$
+language plpgsql;
+uso: select f_InsereFuncionario ('5221', 'Paulo Afonso', 'Rua das Acácias', 'Votuporanga', 9811);
+```
