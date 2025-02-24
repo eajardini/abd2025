@@ -731,21 +731,23 @@ uso: select f_InsereFuncionario ('5221', 'Paulo Afonso', 'Rua das Acácias', 'Vo
 **:rocket: Exemplo 1**: Projete uma função que passado o código do cliente, retorne as informações nome, endereco, cidade, uf e cep em forma de registro. Implemente na função o controle, por meio de Raise, de cliente não encontrado:
 
 ```sql
-create or replace function f_EncontraCliente (codigo_ClientePar cliente.codigo_cliente%type) returns table(nome_cliente NUMERIC, endereco TEXT, cidade TEXT, uf CHAR(2), cep TEXT)
+create or replace function f_EncontraCliente (codigo_ClientePar cliente.codigo_cliente%type) returns table(nome_clientePar VARCHAR, enderecoPar VARCHAR, cidadePar VARCHAR, ufPar CHAR(2), cepPar VARCHAR)
 as
-$$
-    declare regcli RECORD;
+$$   
 begin
-    select nome_cliente, endereco, cidade, uf, cep into regcli
-    from cliente where codigo_cliente = codigo_ClientePar;
+    -- Retorna o cliente correspondente diretamente
+    RETURN QUERY  
+    SELECT nome_cliente, endereco, cidade, uf, cep  
+    FROM cliente  
+    WHERE codigo_cliente = codigo_ClientePar;  
 
-    if not found then
-        RAISE 'O cliente de código % não foi encontrado' , cod_clientepar using ERRCODE = 'ERR01';
-    end if;
-
-    return regcli;
+    -- Se nenhum registro for encontrado, levanta um erro
+    IF NOT FOUND THEN  
+        RAISE EXCEPTION 'O cliente de código % não foi encontrado', codigo_ClientePar  
+        USING ERRCODE = 'ERR01';  
+    END IF;  
 end;
 $$ language plpgsql;
-uso: select *from f_EncontraCliente(720) as (nome_cliente varchar, endereco varchar, cidade varchar, uf
-char(2), cep varchar);
+
+uso: select * from f_EncontraCliente(720);
 ```
