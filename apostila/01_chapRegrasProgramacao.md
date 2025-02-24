@@ -656,7 +656,7 @@ select campo1, campo2,... ,campoN INTO var1, var2,... , varN
 [from tabela]
 ```
 
-**:rocket: Exemplo 1**: Projete uma função que receba dois números como parâmetro e devolva a soma deles. Realize a soma com o comando *select*:
+**:rocket: Exemplo 1**: Projete uma função que receba dois números como parâmetro e devolva a soma deles. Repare o **RAISE NOTICE** no corpo da função. Realize a soma com o comando *select*:
 ```sql
 CREATE OR REPLACE FUNCTION f_SomaSelect (num1 numeric, num2 numeric) RETURNS numeric
 AS
@@ -664,6 +664,10 @@ $$
     DECLARE retval numeric;
 BEGIN
     SELECT num1 + num2 INTO retval;
+
+    RAISE NOTICE 'O resultado foi %' , retval; -- usado para dar alguma informação ao usuário que não seja erro.
+
+
     RETURN retval;
 END;
 $$ LANGUAGE plpgsql;
@@ -718,4 +722,30 @@ end;
 $$
 language plpgsql;
 uso: select f_InsereFuncionario ('5221', 'Paulo Afonso', 'Rua das Acácias', 'Votuporanga', 9811);
+```
+
+
+### Retornando Registros
+É possível para as funções fazer retorno de registros de tabelas. O retorno pode ser de um único registro quanto de um conjunto. Assim, as funções trabalhariam como se fossem um comando *select* ou uma *view*. O tipo de dado de retorno de um ou mais registros deve ser **table**.
+
+**:rocket: Exemplo 1**: Projete uma função que passado o código do cliente, retorne as informações nome, endereco, cidade, uf e cep em forma de registro. Implemente na função o controle, por meio de Raise, de cliente não encontrado:
+
+```sql
+create or replace function f_EncontraCliente (codigo_ClientePar cliente.codigo_cliente%type) returns table(nome_cliente NUMERIC, endereco TEXT, cidade TEXT, uf CHAR(2), cep TEXT)
+as
+$$
+    declare regcli RECORD;
+begin
+    select nome_cliente, endereco, cidade, uf, cep into regcli
+    from cliente where codigo_cliente = codigo_ClientePar;
+
+    if not found then
+        RAISE 'O cliente de código % não foi encontrado' , cod_clientepar using ERRCODE = 'ERR01';
+    end if;
+
+    return regcli;
+end;
+$$ language plpgsql;
+uso: select *from f_EncontraCliente(720) as (nome_cliente varchar, endereco varchar, cidade varchar, uf
+char(2), cep varchar);
 ```
