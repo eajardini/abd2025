@@ -731,7 +731,7 @@ uso: select f_InsereFuncionario ('5221', 'Paulo Afonso', 'Rua das Acácias', 'Vo
 **:rocket: Exemplo 1**: Projete uma função que passado o código do cliente, retorne as informações nome, endereco, cidade, uf e cep em forma de registro. Implemente na função o controle, por meio de Raise, de cliente não encontrado:
 
 ```sql
-create or replace function f_EncontraCliente (codigo_ClientePar cliente.codigo_cliente%type) returns table(nome_clientePar VARCHAR, enderecoPar VARCHAR, cidadePar VARCHAR, ufPar CHAR(2), cepPar VARCHAR)
+create or replace function f_EncontraCliente (codigo_ClientePar cliente.codigo_cliente%type) returns TABLE(nome_cliente_pars VARCHAR, endereco_pars VARCHAR, cidade_pars VARCHAR, uf_pars CHAR(2), cep_pars VARCHAR)
 as
 $$   
 begin
@@ -750,4 +750,61 @@ end;
 $$ language plpgsql;
 
 uso: select * from f_EncontraCliente(720);
+```
+
+**:rocket: Exemplo 2**: Desenvolva uma função para trazer os números dos pedidos, prazos de entrega e os valores totais dos pedido de um cliente cujo código seja passado por parâmetro:
+
+```sql
+CREATE OR REPLACE FUNCTION f_EncontraPedidos (
+    codigo_ClientePar cliente.codigo_cliente%TYPE
+)  
+RETURNS TABLE(num_pedido_pars NUMERIC, prazo_entrega_pars NUMERIC, total_pedido_pars NUMERIC)  
+AS $$  
+BEGIN  
+    FOR num_pedido_pars, prazo_entrega_pars, total_pedido_pars IN  
+        SELECT num_pedido, prazo_entrega,  total_pedido  
+        FROM pedido 
+        WHERE codigo_cliente = codigo_ClientePar  
+    LOOP  
+        RETURN NEXT;  -- Retorna os valores atribuídos diretamente às colunas da tabela de saída  
+    END LOOP;  
+
+    -- Se nenhum registro for encontrado, levanta um erro
+    IF NOT FOUND THEN  
+        RAISE EXCEPTION 'O cliente de código % não foi encontrado', codigo_ClientePar  
+        USING ERRCODE = 'ERR01';  
+    END IF;  
+END;  
+$$ LANGUAGE plpgsql;
+
+uso: select * from f_EncontraPedidos(720);
+```
+
+**:rocket: Exemplo 3**: Desenvolva uma função para trazer os números dos pedidos, prazos de entrega e os valores totais dos pedidos de VENDEDORES cuja faixa de comissão seja passada por parâmetro:
+
+```sql
+CREATE OR REPLACE FUNCTION f_EncontraPedidosVendedores (
+    faixa_comissaoPar vendedor.faixa_comissao%TYPE
+)  
+RETURNS TABLE(num_pedido_pars NUMERIC, prazo_entrega_pars NUMERIC, total_pedido_pars NUMERIC)  
+AS $$  
+BEGIN  
+    FOR num_pedido_pars, prazo_entrega_pars, total_pedido_pars IN  
+        SELECT num_pedido, prazo_entrega,  total_pedido  
+        FROM pedido p, vendedor v
+        WHERE p.codigo_vendedor = v.codigo_vendedor
+          AND faixa_comissao = faixa_comissaoPar
+    LOOP  
+        RETURN NEXT;  
+    END LOOP;  
+
+    -- Se nenhum registro for encontrado, levanta um erro
+    IF NOT FOUND THEN  
+        RAISE EXCEPTION 'A faixa de comissão % não foi encontrada', faixa_comissaoPar  
+        USING ERRCODE = 'ERR01';  
+    END IF;  
+END;  
+$$ LANGUAGE plpgsql;
+
+uso: select * from f_EncontraPedidosVendedores('A');
 ```
