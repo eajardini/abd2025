@@ -647,3 +647,5 @@ SELECT classificar_numero(0);   -- Retorna: 'O número é zero'
 
 ```
 ### Consultas simples com o comando SELECT ... INTO
+O comando SELECT ... INTO possibilita que usemos valores recuperados das tabelas do banco de dados dentro das funções. Desta forma, muitas das rotinas que são desenvolvidas nas linguagens de programação e que acessam muitos dados podem ser convertidas para dentro do SGBD. 
+A sintaxe desse comando é:
