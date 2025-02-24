@@ -178,7 +178,63 @@ group by 1;
     WHERE cliente.codigo_cliente = pedido.codigo_cliente
       AND pedido.num_pedido = item_pedido.num_pedido
       AND item_pedido.codigo_produto = produto.codigo_produto;
+    ```
 
+### 📝 A) Exercícios sobre Funções
+1. Implemente um procedimento que receba 4 parâmetros. Os dois primeiros serão números que sofrerão uma das quatro operações básicas da matemática adição, subtração, multiplicação e divisão; o terceiro parâmetro será uma variável que armazenará o resultado da operação e por fim, o quarto parâmetro indicará qual  será a operação realizada. Após implementar, teste o procedimento e veja se está funcionando corretamente.
+```sql
+	create or replace function f_claculadora (num1Par numeric, num2Par numeric, respPar numeric, operacaoPar char) returns numeric
+	as
+	$$
+	begin
+	  if operacaoPar = '+' then
+	    respPar = num1Par + num2Par;
+	  elseif operacaoPar = '-' then
+	    respPar = num1Par - num2Par;
+	  elseif operacaoPar = '*' then
+	    respPar = num1Par * num2Par;
+	  elseif operacaoPar = '/' then
+	    respPar = num1Par / num2Par;
+	  else
+	    respPar = 0;
+	  end if;
+	
+	  return respPar;
+	end;
+	$$
+	language plpgsql;
+	uso: select f_claculadora(10, 5, 0, '+');
+```
+   
+   
+2. Projete uma função que informado o código do cliente por parâmetro, encontre o valor total das compras desse cliente. Como retorno, a função deve informar o nome do cliente concatenado com o valor da compra. Você deverá usar as tabelas cliente, pedido, item_pedido e produto.
+```sql
+	create or replace function f_TotalCliente (codigo_clientePar numeric) returns text
+	as
+	$$
+	Declare
+	  nome_clienteRetorno cliente.nome_cliente%type;
+	  Valor_TotalRetorno numeric;
+	
+	begin
+	  select cliente.nome_cliente, 
+	         SUM(produto.valor_venda * item_pedido.quantidade) "Valor Total" 
+	         INTO nome_clienteRetorno, Valor_TotalRetorno 
+	  FROM 
+	         public.cliente, public.pedido, public.produto, public.item_pedido
+	  WHERE 
+	         cliente.codigo_cliente = pedido.codigo_cliente AND
+	         pedido.num_pedido = item_pedido.num_pedido AND
+	         item_pedido.codigo_produto = produto.codigo_produto AND
+	         cliente.codigo_cliente = codigo_clientePar
+	  GROUP BY cliente.nome_cliente;
+	
+	  RETURN nome_clienteRetorno || ': ' || Valor_TotalRetorno;
+	end;
+	$$
+	language plpgsql;
+	uso: select f_TotalCliente(720);
+```
 
 
 
