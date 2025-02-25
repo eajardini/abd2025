@@ -249,7 +249,7 @@ UNION ALL
 SELECT nome_vendedor as Nome FROM vendedor;
 ```
 
-**Exemplo 4:** Monte uma consulta utilizando o UNIOUN para trazer a descrição dos protudos e suas unidades. porém, traga apenas as unidades M e SAC
+**Exemplo 4:** Monte uma consulta utilizando o UNION para trazer a descrição dos protudos e suas unidades. porém, traga apenas as unidades M e SAC
 ```sql
 select descricao, unidade from produto
 where unidade = 'M'
