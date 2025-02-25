@@ -306,7 +306,7 @@ select total_pedido as nome from pedido;
 ```
 
 ### 📝 Exercícios sobre Álgebra Relacional
-1) Monte uma consulta SQL para trazer os nomes dos clientes (tabela *cliente*) e dos vendedores (vendedor) e a respectiva quantidade de pedido (tabela *pedido*) que cada um realizou. Utilize o operador UNION para unir as duas consultas. Você terá que usar uma junção com pedido.
+1) Monte uma consulta SQL para trazer os nomes dos clientes (tabela *cliente*) e dos vendedores (tabela *vendedor*) e a respectiva quantidade de pedido (tabela *pedido*) que cada um realizou. Utilize o operador UNION para unir as duas consultas. Para cada consulta, você terá que usar uma junção com a tabela pedido.
 
 
 ## VIEW (VISÃO)   
