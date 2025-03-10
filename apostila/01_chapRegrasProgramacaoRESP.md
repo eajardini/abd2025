@@ -237,4 +237,35 @@ group by 1;
 ```
 
 
+### 📝 B) Exercícios sobre Funções
+1) Desenvolva uma função que passado o *codigo do curso* (**tabela curso**), encontre as turmas e os alunos que estão matriculados no curso. Você terá que fazer a junção entre as tabelas curso, turma, aluno e histórico.
+   O retorno deve ser uma **table** com os campos: nome do curso, código da turma e nome do aluno.
+```sql
+CREATE OR REPLACE FUNCTION f_AlunosCurso (curcodPar curso.cur_cod%TYPE
+)  
+RETURNS TABLE(nomeCursoPars VARCHAR, codigoTurmaPars int,  nomeAlunoPars VARCHAR)  
+AS $$    
+BEGIN 
+    FOR nomeCursoPars, codigoTurmaPars, nomeAlunoPars IN  
+        select cur_nome, tur_codtur, alu_nome
+        from curso c, turma t, aluno a, historico h 
+        where c.cur_cod = t.tur_codigocurso
+          and t.tur_codtur = h.hist_codigoturma
+          and h.hist_matriculaaluno = a.alu_matricula
+          and c.cur_cod = curcodPar
+    LOOP        
+        RETURN NEXT;  
+    END LOOP; 
 
+
+    -- Se nenhum registro for encontrado, levanta um erro
+    IF NOT FOUND THEN  
+        RAISE EXCEPTION 'O curso % não foi encontrado', curcodPar  
+        USING ERRCODE = 'ERR01';  
+    END IF;  
+END;  
+$$ LANGUAGE plpgsql;
+
+uso: select * from f_AlunosCurso(1);
+
+```
