@@ -840,3 +840,5 @@ uso: select * from f_DiferencaValor('Kg');
 
 
 ### 📝 B) Exercícios sobre Funções
+1) Desenvolva uma função que passado o *codigo do curso* (**tabela curso**), encontre as turmas e os alunos que estão matriculados no curso. Você terá que fazer a junção entre as tabelas curso, turma, aluno e histórico.
+   O retorno deve ser uma **table** com os campos: nome do curso, código da turma e nome do aluno.
