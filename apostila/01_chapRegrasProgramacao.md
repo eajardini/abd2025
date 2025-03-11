@@ -427,8 +427,8 @@ Perceba que houve erro, pois o **código_cliente** não estava presente na view.
 ### 📝 Exercícios sobre Visões
 1. De acordo com o DER da **figura presente na seção de Exercícios de Sequências**, desenvolva as seguintes visões:  
     (a) Uma visão que mostre a descrição da obra, a máquina utilizada e a data do uso. Ordene pela descrição da obra.  
-    (b) Uma visão que mostre a descrição da obra e a quantidade de máquinas utilizadas.
-    (C) Uma visão que mostre o nome do cliente, prazo_entrega do pedido, a descricao do produto vendido, a quantidade e o valor_venda nos itens do pedido e o valor total por produto (item_pedido.valor_venda * item_pedido.quantidade).
+    (b) Uma visão que mostre a descrição da obra e a quantidade de máquinas utilizadas.  
+    (C) Uma visão que mostre o nome do cliente, prazo_entrega do pedido, a descricao do produto vendido, a quantidade e o valor_venda nos itens do pedido e o valor total por produto (item_pedido.valor_venda * item_pedido.quantidade).  
 
 
 ## FUNÇÕES (_FUNCTIONS_) OU PROCEDIMENTOS ARMAZENADOS (_STORED PROCEDURES_)
