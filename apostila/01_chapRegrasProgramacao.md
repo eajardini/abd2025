@@ -343,7 +343,7 @@ create [or replace] view
 as
 subconsulta
 ```
-**:rocket: Exemplo 1**: Desejamos criar uma visão em que aparece somente os alunos de Votuporanga:  
+**:rocket: Exemplo 1**: Desejamos criar uma visão em que apareça somente os alunos de Votuporanga:  
 ```sql
 create view v_aluno_votuporanga
 as
