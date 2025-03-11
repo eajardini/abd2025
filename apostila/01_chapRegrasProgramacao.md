@@ -397,6 +397,12 @@ from alunov alu left join aluno_grad alugrad on (alu.id = alugrad.id)
                 left join aluno_pos alupos on (alu.id = alupos.id) ;
 ```
 
+###  Listando as Visões no *plsql*
+Para listar visões usando o **psql**, user:
+
+```sql
+\dv
+```
 
 ###  Removendo uma View
 Para remover uma view, utilize o comando drop view da seguinte maneira:
