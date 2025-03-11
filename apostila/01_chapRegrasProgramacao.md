@@ -430,7 +430,7 @@ from cliente;
 Tente fazer:  
 ```sql
 insert into v_dados_cliente
-values (’Francisco Silva’, ’Rua das Araras’, ’Votuporanga’);
+values ('Francisco Silva', 'Rua das Araras', 'Votuporanga');
 ```
 Perceba que houve erro, pois o **código_cliente** não estava presente na view. Apague a view (DROP TABLE) e recrie-a **adicionando esse campo** e tente inserir o cliente com o código 3210.
 
