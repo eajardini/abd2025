@@ -343,7 +343,7 @@ create [or replace] view
 as
 subconsulta
 ```
-**:rocket: Exemplo 1**: Desejamos criar uma visão em que apareça somente os alunos de Votuporanga:  
+**:rocket: Exemplo 1**: Desejamos criar uma visão em que apareça somente os alunos de Votuporanga. Tabela **alunov**:  
 ```sql
 create view v_aluno_votuporanga
 as
@@ -357,7 +357,7 @@ where cidade = 'Votuporanga';
 select * from v_aluno_votuporanga;
 ```
 
-**:rocket: Exemplo 2**: Monte um consulta SQL para o relatório que traga o nome do cliente e a quantidade de pedido que o mesmo realizou ordenado pelo o cliente que fez mais pedido para o que fez menos:  
+**:rocket: Exemplo 2**: Monte um consulta SQL para o relatório que traga o nome do cliente e a quantidade de pedido que o mesmo realizou ordenado pelo o cliente que fez mais pedido para o que fez menos. Tabelas **cliente e pedido**:  
 ```sql
 create view v_cliente_pedido
 as
@@ -368,14 +368,14 @@ group by 1
 order by 2 desc;
 ```
 
-**:rocket: Exemplo 3**: Crie uma visão para um relatório que informe o **ra, nome e o ano** dos alunos de graduação:
+**:rocket: Exemplo 3**: Crie uma visão para um relatório que informe o **ra, nome e o ano** dos alunos de graduação.Tabelas **alunov e aluno_grad**:
 ```sql
 create view v_aluno_grad
 as
 select ra, nome, ano_curso
 from alunov alu inner join aluno_grad alugrad on (alu.id = alugrad.id);
 ```
-**:rocket: Exemplo 4**: Crie uma visão que informe os nomes dos alunos de pós-graduação e os nomes de seus respectivos orientadores:
+**:rocket: Exemplo 4**: Crie uma visão que informe os nomes dos alunos de pós-graduação e os nomes de seus respectivos orientadores. Tabelas **alunov e aluno_pos**:
 ```sql
 create view v_aluno_pos
 as
@@ -384,7 +384,11 @@ from alunov Alu, aluno_pos alupos
 where alu.id = alupos.id;
 ```
 
-**:rocket: Exemplo 5**: Crie uma visão para um relatório que informe o nome dos alunos; se o aluno for de graduação, informe o ano; se for de pós, informe seu orientador:
+**:rocket: Exemplo 5**: Crie uma visão para um relatório que informe o nome dos alunos; se o aluno for de graduação, informe o ano; se for de pós, informe seu orientador. Tabelas **alunov, aluno_grad e aluno_pos**. Como conseguir isso?
+  
+
+Você deverá usar **left join**:  
+
 ```sql
 create view v_rel_aluno
 as
