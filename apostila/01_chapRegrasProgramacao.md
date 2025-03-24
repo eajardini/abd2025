@@ -992,6 +992,12 @@ execute procedure f_salario_registro()
 
 Executar: 
 ```sql
-insert into seq_funcionario values (2, '321', 'Pedro da Silva', 'Rua A', 'Votuporanga', 4000);
-```
+insert into seq_funcionario values (10, '321', 'Pedro da Silva', 'Rua A', 'Votuporanga', 4000);
+insert into seq_funcionario values (11, '322', 'Márcio da Nogueira', 'Rua B', 'Fernandópolis', 4666);
+
+-- Verifique a tabela seq_salario_registro
+
+-- Agora faça esse update em tdos os registros e verifique novamente a tabela seq_salario_registro
+
 update seq_funcionario set func_salario = 6000;
+```
