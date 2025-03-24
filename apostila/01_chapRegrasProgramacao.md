@@ -924,7 +924,7 @@ execute procedure nome_da_funcao(parâmetros);
 onde:  
   - *nome_do_gatilho*: é o nome que será atribuido ao trigger.  
   - *eventos_que_disparam_o_gatilho*: são os comandos DML que disparam o gatilho. São eles os comandos insert, delete e update.  
-    - *tabela*: é a tabela do banco de dados a que o gatilho será configurado e disparado.  
-    - *tipo_execução*: indica se o trigger deve ser executado uma vez por comando SQL ou deve ser executado para cada linha na tabela em questão:  
-        - *each statement*: dispara o gatilho uma única vez independente de quantas linhas forem alteradas pelo comando. Se nada for especificado, essa opção é utilizada
+  - *tabela*: é a tabela do banco de dados a que o gatilho será configurado e disparado.  
+  - *tipo_execução*: indica se o trigger deve ser executado uma vez por comando SQL ou deve ser executado para cada linha na tabela em questão:  
+    - *each statement*: dispara o gatilho uma única vez independente de quantas linhas forem alteradas pelo comando. Se nada for especificado, essa opção é utilizada
 
