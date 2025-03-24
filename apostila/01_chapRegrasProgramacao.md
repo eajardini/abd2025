@@ -889,7 +889,27 @@ Os triggers podem ser acionados pelos seguintes eventos:
 
  ### Acesso aos valores dos campos do Gatilho
  
-No PostgreSQL, as variáveis OLD e NEW são usadas em triggers para acessar os valores dos registros antes e depois da execução de uma operação (INSERT, UPDATE ou DELETE).
+No PostgreSQL, as variáveis **OLD** e **NEW** são usadas em triggers para acessar os valores dos registros antes e depois da execução de uma operação (INSERT, UPDATE ou DELETE).
 
+A forma de acessar os valores dos campos que estão sendo processados é feita por meio dos identificadores:  
+    - OLD: indica o valor corrente de uma coluna em operações que lidam com as instruções DELETE e UPDATE.  
+    - NEW: refere-se ao novo valor da coluna nas operações INSERT e UPDATE.  
 
+### Criação de Gatilhos
+A implementação de um gatilho é feita em uma função separada dele. Assim, para criarmos um trigger, **primeiro deve ser criada uma função que retorna** um tipo de dados trigger (**returns trigger**) e em **seguida criarmos o trigger** propriamente dito.
+A sintaxe para criação de gatilhos é:  
+1. Criação da função que **retorna o trigger**:
+```sql
+create or replace function nome_da_funcao (parâmteros) returns triggers
+as $$
+declare
+    ...
+begin
+    ...
+    ...
+    ...
+end;
+$$ language plpgsql;
+```
 
+2. Criação do trigger:
