@@ -876,13 +876,13 @@ Assim, quando ocorre um evento que possui um **trigger nele configurado**, esse 
     - Ordem de execução: Se houver múltiplos triggers na mesma tabela, pode ser complexo controlar a ordem de execução.
 
 ### Eventos que Disparam Triggers
-Os triggers podem ser acionados pelos seguintes eventos:
-    - **BEFORE INSERT** → Antes de inserir um registro.
-    - **AFTER INSERT** → Depois de inserir um registro.
-    - **BEFORE UPDATE** → Antes de atualizar um registro.
-    - **AFTER UPDATE** → Depois de atualizar um registro.
-    - **BEFORE DELETE** → Antes de excluir um registro.
-    - **AFTER DELETE** → Depois de excluir um registro.
+Os triggers podem ser acionados pelos seguintes eventos:  
+  - **BEFORE INSERT** → Antes de inserir um registro.  
+  - **AFTER INSERT** → Depois de inserir um registro.  
+  - **BEFORE UPDATE** → Antes de atualizar um registro.  
+  - **AFTER UPDATE** → Depois de atualizar um registro.  
+  - **BEFORE DELETE** → Antes de excluir um registro.  
+  - **AFTER DELETE** → Depois de excluir um registro.  
 
 É possível ainda combinar alguns dos modos, desde que tenham a operação AFTER ou BEFORE em comum, assim mesclando duas ou mais opções. Veja o exemplo a seguir:  
     - BEFORE INSERT OR UPDATE O trigger é disparado antes de uma ação de inserção ou alteração de um registro.
@@ -892,8 +892,8 @@ Os triggers podem ser acionados pelos seguintes eventos:
 No PostgreSQL, as variáveis **OLD** e **NEW** são usadas em triggers para acessar os valores dos registros antes e depois da execução de uma operação (INSERT, UPDATE ou DELETE).
 
 A forma de acessar os valores dos campos que estão sendo processados é feita por meio dos identificadores:  
-    - OLD: indica o valor corrente de uma coluna em operações que lidam com as instruções DELETE e UPDATE.  
-    - NEW: refere-se ao novo valor da coluna nas operações INSERT e UPDATE.  
+  - OLD: indica o valor corrente de uma coluna em operações que lidam com as instruções DELETE e UPDATE.  
+  - NEW: refere-se ao novo valor da coluna nas operações INSERT e UPDATE.  
 
 ### Criação de Gatilhos
 A implementação de um gatilho é feita em uma função separada dele. Assim, para criarmos um trigger, **primeiro deve ser criada uma função que retorna** um tipo de dados trigger (**returns trigger**) e em **seguida criarmos o trigger** propriamente dito.
@@ -908,6 +908,7 @@ begin
     ...
     ...
     ...
+    Return Null ou New
 end;
 $$ language plpgsql;
 ```
@@ -926,5 +927,27 @@ onde:
   - *eventos_que_disparam_o_gatilho*: são os comandos DML que disparam o gatilho. São eles os comandos insert, delete e update.  
   - *tabela*: é a tabela do banco de dados a que o gatilho será configurado e disparado.  
   - *tipo_execução*: indica se o trigger deve ser executado uma vez por comando SQL ou deve ser executado para cada linha na tabela em questão:  
-    - *each statement*: dispara o gatilho uma única vez independente de quantas linhas forem alteradas pelo comando. Se nada for especificado, essa opção é utilizada
+    - *each statement*: dispara o gatilho uma única vez independente de quantas linhas forem alteradas pelo comando. Se nada for especificado, essa opção é utilizada.
+    - *each row*: dispara o gatilho para cada linha afetada pelos comandos DML. (Esse é o mais usado).
+  - *Return Null || New*: dentro da função, você deverá indicar o retorno (return) sendo **Null ou New**. O primeiro (*null*), é usado quando o trigger é disparado depois (*after*) que o comando DML for executado. O *New* é utilizado quando o trigger é disparado antes (*before*) do comando DML ser executado e **indica para o Postgres que quando terminar a execução da função, ele deve continuar a execução do comando DML**.
+   
+### Exemplos de criação de triggers
+**:rocket: Exemplo 1**: Nesse exemplo, vamos permitir operações DML à tabela conta corrente no horário bancário. Das 10:00 às 15:00 horas.
+```sql
+create or replace function f_verifica_horario() returns trigger
+as
+$$
+begin
+IF extract (hour from current_time) NOT BETWEEN 10 AND 15 THEN
+    raise 'Operação não pode ser executada fora do horário bancário' using ERRCODE = 'EHO01';
+end if;
+return new; 
+end;
+$$
 
+create trigger trg_verifica_horario
+before insert
+on conta for each row
+
+Execute o código: insert into conta values (3, ’A-120’, 600);
+```
