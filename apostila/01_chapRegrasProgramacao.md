@@ -854,4 +854,19 @@ uso: select * from f_DiferencaValor('Kg');
    O retorno deve ser uma **table** com os campos: nome do curso, código da turma e nome do aluno.
 
 
-## Gatilhos (*Triggers*)
+## Gatilhos (*Triggers*)  
+Triggers são funções disparadas de forma automática **antes ou depois** de uma operação INSERT, UPDATE ou DELETE em uma tabela do SGBD.
+Assim, quando ocorre um evento que possui um **trigger nele configurado**, esse trigger é disparado, ou seja, executado de forma automática. **Não é necessário** fazer chamada direta do trigger.
+
+:blush: Eles são úteis para:
+    - Garantir restrições de integridade.  
+    - Automatizar atualizações em outras tabelas.  
+    - Registrar logs de alterações.  
+    - Implementar validações complexas que não podem ser feitas com CHECK ou UNIQUE.
+
+:+1: Vantagens
+As vantagens dos triggers são?
+    - Automação de processos sem precisar alterar a aplicação.  
+    - Melhora a integridade dos dados, impedindo inconsistências.  
+    - Redução de código na aplicação: Evita lógica repetida no backend.
+
