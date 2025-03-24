@@ -864,9 +864,32 @@ Assim, quando ocorre um evento que possui um **trigger nele configurado**, esse 
     - Registrar logs de alterações.  
     - Implementar validações complexas que não podem ser feitas com CHECK ou UNIQUE.
 
-:+1: Vantagens
-As vantagens dos triggers são?
+
+:+1: As **vantagens** dos triggers são?
     - Automação de processos sem precisar alterar a aplicação.  
     - Melhora a integridade dos dados, impedindo inconsistências.  
     - Redução de código na aplicação: Evita lógica repetida no backend.
+    
+:-1: As **desvantagens** são:
+    - Dificuldade de depuração: Como a execução é automática, pode ser difícil rastrear problemas.
+    - Impacto na performance: Pode tornar operações INSERT, UPDATE, e DELETE mais lentas.
+    - Ordem de execução: Se houver múltiplos triggers na mesma tabela, pode ser complexo controlar a ordem de execução.
+
+### Eventos que Disparam Triggers
+Os triggers podem ser acionados pelos seguintes eventos:
+    - **BEFORE INSERT** → Antes de inserir um registro.
+    - **AFTER INSERT** → Depois de inserir um registro.
+    - **BEFORE UPDATE** → Antes de atualizar um registro.
+    - **AFTER UPDATE** → Depois de atualizar um registro.
+    - **BEFORE DELETE** → Antes de excluir um registro.
+    - **AFTER DELETE** → Depois de excluir um registro.
+
+É possível ainda combinar alguns dos modos, desde que tenham a operação AFTER ou BEFORE em comum, assim mesclando duas ou mais opções. Veja o exemplo a seguir:  
+    - BEFORE INSERT OR UPDATE O trigger é disparado antes de uma ação de inserção ou alteração de um registro.
+
+ ### Acesso aos valores dos campos do Gatilho
+ 
+No PostgreSQL, as variáveis OLD e NEW são usadas em triggers para acessar os valores dos registros antes e depois da execução de uma operação (INSERT, UPDATE ou DELETE).
+
+
 
