@@ -948,6 +948,8 @@ $$
 create trigger trg_verifica_horario
 before insert
 on conta for each row
+execute procedure f_verifica_horario();
+
 
 Execute o código: insert into conta values (3, ’A-120’, 600);
 ```
