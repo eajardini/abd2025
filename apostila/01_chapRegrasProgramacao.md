@@ -920,7 +920,7 @@ for tipo_execução
 execute procedure nome_da_funcao(parâmetros);
 ```
 
-onde:
+onde:  
     - *nome_do_gatilho*: é o nome que será atribuido ao trigger.  
     - *eventos_que_disparam_o_gatilho*: são os comandos DML que disparam o gatilho. São eles os comandos insert, delete e update.  
     - *tabela*: é a tabela do banco de dados a que o gatilho será configurado e disparado.  
