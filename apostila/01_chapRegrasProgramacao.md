@@ -900,7 +900,7 @@ A implementação de um gatilho é feita em uma função separada dele. Assim, p
 A sintaxe para criação de gatilhos é:  
 1. Criação da função que **retorna o trigger**:
 ```sql
-create or replace function nome_da_funcao (parâmteros) returns triggers
+create or replace function nome_da_funcao () returns triggers
 as $$
 declare
     ...
@@ -913,3 +913,17 @@ $$ language plpgsql;
 ```
 
 2. Criação do trigger:
+```sql
+create trigger nome_do_gatilho
+eventos_que_disparam_o_gatilho on tabela
+for tipo_execução
+execute procedure nome_da_funcao(parâmetros);
+```
+
+onde:
+    - *nome_do_gatilho*: é o nome que será atribuido ao trigger.  
+    - *eventos_que_disparam_o_gatilho*: são os comandos DML que disparam o gatilho. São eles os comandos insert, delete e update.  
+    - *tabela*: é a tabela do banco de dados a que o gatilho será configurado e disparado.  
+    - *tipo_execução*: indica se o trigger deve ser executado uma vez por comando SQL ou deve ser executado para cada linha na tabela em questão.  
+        - *each statement*: dispara o gatilho uma única vez independente de quantas linhas forem alteradas pelo comando. Se nada for especificado, essa opção é utilizada
+
