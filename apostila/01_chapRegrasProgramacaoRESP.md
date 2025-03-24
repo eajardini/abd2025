@@ -325,8 +325,7 @@ begin
         set quantidade = quantidade - new.quantidade
         where codigo_produto = new.codigo_produto;
     ELSE
-         raise 'Quantidade insuficiente de produto'
-            using ERRCODE = 'ER003';        
+         raise EXCEPTION 'Quantidade insuficiente de produto' using ERRCODE = 'ER003';        
     end if;
 
     return new;
