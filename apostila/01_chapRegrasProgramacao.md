@@ -1009,7 +1009,7 @@ update seq_funcionario set salario = 6000;
 CREATE OR REPLACE FUNCTION impedir_exclusao_cliente()
 RETURNS TRIGGER AS $$
 BEGIN
-    IF EXISTS (SELECT 1 FROM pedidos WHERE codigo_cliente = OLD.codigo_cliente) THEN
+    IF EXISTS (SELECT 1 FROM pedido WHERE codigo_cliente = OLD.codigo_cliente) THEN
         RAISE EXCEPTION 'Não é possível excluir um cliente com pedidos pendentes';
     END IF;
     RETURN NEW;
