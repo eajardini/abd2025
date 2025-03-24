@@ -1021,7 +1021,7 @@ LANGUAGE plpgsql;
 2. Criando o trigger:
 ```sql
 CREATE TRIGGER trg_bloquear_exclusao_cliente
-BEFORE DELETE ON clientes
+BEFORE DELETE ON cliente
 FOR EACH ROW
 EXECUTE FUNCTION impedir_exclusao_cliente();
 ```
