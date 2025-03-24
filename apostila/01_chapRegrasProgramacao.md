@@ -974,7 +974,7 @@ create or replace function f_salario_registro() returns trigger
 as $$
 begin
     insert into seq_salario_registro
-        values (nextval('sid_salreg'), new.func_id, new.func_salario,current_date);
+        values (nextval('sid_salreg'), new.id_func, new.salario, current_date);
     return null;
 end;
 $$
