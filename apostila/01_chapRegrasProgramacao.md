@@ -950,6 +950,11 @@ before insert
 on conta for each row
 execute procedure f_verifica_horario();
 
+-- Vamos verificar a hora:
+    - select current_time;
+-- Se tiver necessidade, faça o ajuste:
+    - SET TIMEZONE TO 'America/Sao_Paulo';
 
-Execute o código: insert into conta values (3, ’A-120’, 600);
+
+Execute o código: insert into conta values (3, 'A-120', 600);
 ```
