@@ -272,7 +272,7 @@ uso: select * from f_AlunosCurso(1);
 
 ### 📝 Exercícios sobre Trigger
 
-2. Desenvolva um gatilho para monitorar a alteração dos endereços dos clientes. Toda vez que um cliente tiver seu endereço alterado por meio de um comando UPDATE, a alteração deve ser registrada por meio de um INSERT em uma tabela de log.
+1. Desenvolva um gatilho para monitorar a alteração dos endereços dos clientes. Toda vez que um cliente tiver seu endereço alterado por meio de um comando UPDATE, a alteração deve ser registrada por meio de um INSERT em uma tabela de log.
 Assim, na função do Trigger deve haver um comando INSERT e o evento do Trigger deve ser BEFORE UPDATE.
 ```sql
 CREATE OR REPLACE FUNCTION log_alteracoes_clientes()
@@ -303,3 +303,59 @@ Verificando:
 select * from log_clientes;
 ```
 
+2. Desenvolva um trigger que evite a venda de um produto cujo estoque seja menor que a quantidade vendida. Porém, caso haja estoque, deverá ser dado baixa no item no estoque. O trigger deverá ser criado sob a **tabela item_pedido**. Toda vez que um registro for inserido nela, antes da inserção (BEFORE), o trigger
+deverá verificar se existe estoque suficiente na tabela produto. Você deverá criar uma variável na função que receberá a quantidade atual em estoque (tabela produto) por meio de um **select into**. Em seguinda, deverá ser comparada a quantidade a ser vendida (variável NEW) com a quantidade em estoque (obtida pelo *select into*). Caso aquela seja menor ou igual a quantidade em estoque, será efetuada a baixa no estoque, caso contrário será gerado um erro com o comando Raise Exception impossibilitando a operação.
+
+```sql
+
+-- Criando a função
+
+create or replace   function f_BaixaEstoque() returns TRIGGER
+as $$
+declare 
+	qtdeEstoque produto.quantidade%type;
+
+begin
+    select quantidade into qtdeEstoque
+	from produto
+	where codigo_produto = new.codigo_produto;
+
+    if (qtdeEstoque >= new.quantidade) THEN
+        update produto
+        set quantidade = quantidade - new.quantidade
+        where codigo_produto = new.codigo_produto;
+    ELSE
+         raise 'Quantidade insuficiente de produto'
+            using ERRCODE = 'ER003';        
+    end if;
+
+    return new;
+end;
+$$
+LANGUAGE plpgsql;
+
+
+-- Criando o trigger
+
+create trigger tr_baixa_estoque
+before insert
+on item_pedido for each row
+execute procedure f_BaixaEstoque();
+
+--Realizando testes
+
+INSERT INTO item_pedido
+    values (121, 25, 5, (select valor_venda
+                            from produto
+                           where codigo_produto = 25), 
+                           (select valor_custo
+                            from produto
+                           where codigo_produto = 25) );
+
+
+-- Verificando as alterações
+
+select * from produto;
+select * from item_pedido;
+
+```
