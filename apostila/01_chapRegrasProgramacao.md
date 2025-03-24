@@ -993,11 +993,40 @@ execute procedure f_salario_registro()
 Executar: 
 ```sql
 insert into seq_funcionario values (10, '321', 'Pedro da Silva', 'Rua A', 'Votuporanga', 4000);
-insert into seq_funcionario values (11, '322', 'Márcio da Nogueira', 'Rua B', 'Fernandópolis', 4666);
+insert into seq_funcionario values (11, '322', 'Márcio Nogueira', 'Rua B', 'Fernandópolis', 4666);
 
 -- Verifique a tabela seq_salario_registro
 
 -- Agora faça esse update em tdos os registros e verifique novamente a tabela seq_salario_registro
 
-update seq_funcionario set func_salario = 6000;
+update seq_funcionario set salario = 6000;
+```
+
+**:rocket: Exemplo 3**: Impedindo a exclusão de um Cliente com Pedidos:
+
+1. Criando a função:  
+```sql
+CREATE OR REPLACE FUNCTION impedir_exclusao_cliente()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF EXISTS (SELECT 1 FROM pedidos WHERE codigo_cliente = OLD.codigo_cliente) THEN
+        RAISE EXCEPTION 'Não é possível excluir um cliente com pedidos pendentes';
+    END IF;
+    RETURN NEW;
+END;
+$$
+LANGUAGE plpgsql;
+```
+
+2. Criando o trigger:
+```sql
+CREATE TRIGGER trg_bloquear_exclusao_cliente
+BEFORE DELETE ON clientes
+FOR EACH ROW
+EXECUTE FUNCTION impedir_exclusao_cliente();
+```
+
+3. Para executar:
+```sql
+delete from cliente where codigo_cliente = 720;
 ```
