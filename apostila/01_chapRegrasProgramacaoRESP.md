@@ -269,3 +269,37 @@ $$ LANGUAGE plpgsql;
 uso: select * from f_AlunosCurso(1);
 
 ```
+
+### 📝 Exercícios sobre Trigger
+
+2. Desenvolva um gatilho para monitorar a alteração dos endereços dos clientes. Toda vez que um cliente tiver seu endereço alterado por meio de um comando UPDATE, a alteração deve ser registrada por meio de um INSERT em uma tabela de log.
+Assim, na função do Trigger deve haver um comando INSERT e o evento do Trigger deve ser BEFORE UPDATE.
+```sql
+CREATE OR REPLACE FUNCTION log_alteracoes_clientes()
+RETURNS TRIGGER AS $$
+BEGIN
+    INSERT INTO log_clientes (id, codigo_cliente, endereco_antigo,endereco_novo, data_modificacao)
+    VALUES (default, OLD.codigo_cliente,OLD.endereco, NEW.endereco, NOW());
+
+    RETURN NEW;
+END;
+$$
+LANGUAGE plpgsql;
+
+
+CREATE TRIGGER trg_log_clientes
+AFTER UPDATE ON cliente
+FOR EACH ROW
+EXECUTE FUNCTION log_alteracoes_clientes();
+
+
+Executando:
+update cliente
+set endereco = 'Nova rua'
+where codigo_cliente = 720;
+
+
+Verificando:
+select * from log_clientes;
+```
+
