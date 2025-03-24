@@ -958,3 +958,40 @@ execute procedure f_verifica_horario();
 
 Execute o código: insert into conta values (3, 'A-120', 600);
 ```
+
+**:rocket: Exemplo 2**: Uma prática comum utilizada no **processo de auditoria de sistemas** é o registro das alterações realizadas nos salários dos funcionários. Dependendo do caso, é importante realizar o registro periódico de cada aumento ocorrido na remuneração de um empregado.   
+Abaixo, segue o código de um trigger para registrar as alterações ocorridas na tabela de salário dos funcionários:
+
+1. Inicialmente, cria-se as sequências *sid_func* para registro na **tabela seq_funcionario** e a sequencia *sid_salreg* para a **tabela seq_salario_registro**:
+```sql
+create sequence sid_func;
+create sequence sid_salreg;
+```
+
+2) Criação da função do trigger que implementa a regra de negócio:
+```sql
+create or replace function f_salario_registro() returns trigger
+as $$
+begin
+    insert into seq_salario_registro
+        values (nextval('sid_salreg'), new.func_id, new.func_salario,current_date);
+    return null;
+end;
+$$
+language plpgsql;
+```
+
+3) Criação do trigger:
+```sql
+create trigger tr_salario_registro
+after insert or update
+on seq_funcionario
+for each row
+execute procedure f_salario_registro()
+```
+
+Executar: 
+```sql
+insert into seq_funcionario values (2, '321', 'Pedro da Silva', 'Rua A', 'Votuporanga', 4000);
+```
+update seq_funcionario set func_salario = 6000;
