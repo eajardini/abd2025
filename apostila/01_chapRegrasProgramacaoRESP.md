@@ -358,3 +358,7 @@ select * from produto;
 select * from item_pedido;
 
 ```
+
+3. (ENADE) Em um Banco de Dados PostgreSQL, Joana precisa criar uma trigger para inserir dados na tabela de auditoria chamada AGENTE_AUDIT todas as vezes que um registro da tabela AGENTE for efetivamente excluído. Para isso, considerando que a função "agente_removido()" já esteja implementada, Joana utilizará
+o comando:
+Resposta: Letra D
