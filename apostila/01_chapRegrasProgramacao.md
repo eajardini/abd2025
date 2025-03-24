@@ -1030,3 +1030,42 @@ EXECUTE FUNCTION impedir_exclusao_cliente();
 ```sql
 delete from cliente where codigo_cliente = 720;
 ```
+
+### Removendo Gatilho
+Para remover um trigger, usa-se o comando *Drop Trigger* da seguinte maneira:
+```sql
+Drop trigger [ IF EXISTS ] nome_trigger on tabela;
+```
+
+Para apagarmos o gatilho anterior, executemos o seguinte comando:
+```sql
+Drop trigger if exists tr_salario_registro on seq_funcionario;
+```
+
+### 📝 Exercícios sobre Trigger
+
+1. Desenvolva um gatilho para monitorar a alteração dos endereços dos clientes. Toda vez que um cliente tiver seu endereço alterado por meio de um comando UPDATE, a alteração deve ser registrada por meio de um INSERT em uma tabela de log.
+Assim, na função do Trigger deve haver um comando INSERT e o evento do Trigger deve ser BEFORE UPDATE.  
+   A estrutura da tabela sera:
+   ```sql
+    CREATE TABLE log_clientes (
+    id SERIAL PRIMARY KEY,
+    codigo_cliente INT,
+    endereco_antigo TEXT,
+    endereco_novo TEXT,
+    data_modificacao TIMESTAMP DEFAULT now()
+   );
+
+   ```
+
+2. Desenvolva um trigger que evite a venda de um produto cujo estoque seja menor que a quantidade vendida. Porém, caso haja estoque, deverá ser dado baixa no item no estoque. O trigger deverá ser criado sob a **tabela item_pedido**. Toda vez que um registro for inserido nela, antes da inserção (BEFORE), o trigger
+deverá verificar se existe estoque suficiente na tabela produto. Você deverá criar uma variável na função que receberá a quantidade atual em estoque (tabela produto) por meio de um **select into**. Em seguinda, deverá ser comparada a quantidade a ser vendida (variável NEW) com a quantidade em estoque (obtida pelo *select into*). Caso aquela seja menor ou igual a quantidade em estoque, será efetuada a baixa no estoque, caso contrário será gerado um erro com o comando Raise Exception impossibilitando a operação.
+
+3. (ENADE) Em um Banco de Dados PostgreSQL, Joana precisa criar uma trigger para inserir dados na tabela de auditoria chamada AGENTE_AUDIT todas as vezes que um registro da tabela AGENTE for efetivamente excluído. Para isso, considerando que a função "agente_removido()" já esteja implementada, Joana utilizará
+o comando:  
+  a) CREATE TRIGGER audit_agente AFTER DELETE ON agente_audit FOR EACH STATEMENT EXECUTE PROCEDURE agente_removido();
+  b) CREATE TRIGGER audit_agente AFTER EXCLUDE ON agente FOR EACH ROW EXECUTE PROCEDURE agente_removido();  
+  c) CREATE EVENT TRIGGER audit_agente AFTER DELETED ON agente FOR EACH ROW EXECUTE PROCEDURE agente_removido();
+  d) CREATE TRIGGER audit_agente AFTER DELETE ON agente FOR EACH ROW EXECUTE PROCEDURE agente_removido();
+  e) CREATE EVENT TRIGGER audit_agente AFTER DELETE ON agente_audit FOR EACH STATEMENT EXECUTE PROCEDURE agente_removido();
+
