@@ -810,8 +810,7 @@ BEGIN
 
     -- Se nenhum registro for encontrado, levanta um erro
     IF NOT FOUND THEN  
-        RAISE EXCEPTION 'A faixa de comissão % não foi encontrada', faixa_comissaoPar  
-        USING ERRCODE = 'ERR01';  
+        RAISE EXCEPTION 'A faixa de comissão % não foi encontrada', faixa_comissaoPar  USING ERRCODE = 'ERR01';  
     END IF;  
 END;  
 $$ LANGUAGE plpgsql;
@@ -939,11 +938,12 @@ as
 $$
 begin
 IF extract (hour from current_time) NOT BETWEEN 10 AND 15 THEN
-    raise 'Operação não pode ser executada fora do horário bancário' using ERRCODE = 'EHO01';
+    raise EXCEPTION 'Operação não pode ser executada fora do horário bancário' using ERRCODE = 'EHO01';
 end if;
 return new; 
 end;
 $$
+LANGUAGE plpgsql;
 
 create trigger trg_verifica_horario
 before insert
