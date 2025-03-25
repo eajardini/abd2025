@@ -550,9 +550,12 @@ As variáveis podem ter os seguintes tipos de dados:
 ```sql
 CREATE OR REPLACE FUNCTION dobrar_valor(valor NUMERIC) RETURNS NUMERIC
 AS
-$$  
-BEGIN  
-    RETURN valor * 2;  
+$$
+DECLARE
+    resultado numeric;
+BEGIN
+    resultado = valor * 2;
+    RETURN resultado;  
 END;  
 $$ LANGUAGE plpgsql;
 
