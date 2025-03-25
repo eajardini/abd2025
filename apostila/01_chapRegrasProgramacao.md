@@ -458,7 +458,7 @@ A função é chamada quando o seu nome é utilizado ou no comando SELECT ou na 
 As Functions são compiladas e armazenados no banco de dados como objetos de esquema. Elas promovem a capacidade de manutenção e reutilização. Quando validados, elas podem ser usadas em várias aplicações.  
 
 **:blush: Vantagens**:
-1. Podem ser criadas rotinas especializadas altamente reutilizáveis, o que torna extremamente produtivo em ambientes do tipo cliente/servidor.  
+1. Podem ser criadas rotinas reutilizáveis tornando deveras produtivo o ambiente do tipo cliente/servidor.  
 2. As rotinas rodam no servidor, liberando está carga do cliente.
 
 **:worried: Desvantagem**:
