@@ -990,7 +990,7 @@ create trigger tr_salario_registro
 after insert or update
 on seq_funcionario
 for each row
-execute procedure f_salario_registro()
+execute procedure f_salario_registro();
 ```
 
 Executar: 
