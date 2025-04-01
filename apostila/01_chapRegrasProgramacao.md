@@ -860,22 +860,22 @@ uso: select * from f_DiferencaValor('Kg');
 Triggers são funções disparadas de forma automática **antes ou depois** de uma operação INSERT, UPDATE ou DELETE em uma tabela do SGBD.
 Assim, quando ocorre um evento que possui um **trigger nele configurado**, esse trigger é disparado, ou seja, executado de forma automática. **Não é necessário** fazer chamada direta do trigger.
 
-:blush: Eles são úteis para:
+:blush: Eles são úteis para:  
     - Garantir restrições de integridade.  
     - Automatizar atualizações em outras tabelas.  
     - Registrar logs de alterações.  
     - Implementar validações complexas que não podem ser feitas com CHECK ou UNIQUE.
 
 
-:+1: As **vantagens** dos triggers são?
+:+1: As **vantagens** dos triggers são?  
     - Automação de processos sem precisar alterar a aplicação.  
     - Melhora a integridade dos dados, impedindo inconsistências.  
     - Redução de código na aplicação: Evita lógica repetida no backend.
     
-:-1: As **desvantagens** são:
-    - Dificuldade de depuração: Como a execução é automática, pode ser difícil rastrear problemas.
-    - Impacto na performance: Pode tornar operações INSERT, UPDATE, e DELETE mais lentas.
-    - Ordem de execução: Se houver múltiplos triggers na mesma tabela, pode ser complexo controlar a ordem de execução.
+:-1: As **desvantagens** são:  
+    - Dificuldade de depuração: Como a execução é automática, pode ser difícil rastrear problemas.  
+    - Impacto na performance: Pode tornar operações INSERT, UPDATE, e DELETE mais lentas.  
+    - Ordem de execução: Se houver múltiplos triggers na mesma tabela, pode ser complexo controlar a ordem de execução.  
 
 ### Eventos que Disparam Triggers
 Os triggers podem ser acionados pelos seguintes eventos:  
@@ -920,7 +920,7 @@ $$ language plpgsql;
 create trigger nome_do_gatilho
 eventos_que_disparam_o_gatilho on tabela
 for tipo_execução
-execute procedure nome_da_funcao(parâmetros);
+execute procedure nome_da_funcao();
 ```
 
 
