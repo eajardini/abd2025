@@ -71,3 +71,25 @@ Para fazer login com o usuário *useraula01* com o psql, digitamos:
 ```sql
 psql -h 172.17.0.1 -U useraula01 -d postgres
 ```
+**Atenção**: O usário vai conseguir entrar no *psql*, mas não visualizar o conteúdo das tabelas.  
+
+### Alteração De Usuário
+
+Para alterar alguma propriedade do usuário, use o comando:  
+```sql
+ALTER USER nome_usuário
+opções
+```
+#### Exemplos
+
+* **Exemplo 01**: Para trocar a senha de um usuário  
+```sql  
+ALTER USER useraula01 WITH PASSWORD '123456';
+```
+
+* **Exemplo 02**: Para de bloquear um usuário e assim ele não poder entrar no SGBD:
+```sql  
+ALTER USER useraula01
+WITH NOLOGIN;
+```
+
