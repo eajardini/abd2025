@@ -23,3 +23,6 @@ limit 5;
 
 6)CREATE DATABASE BDTEMP3
   CONNECTION LIMIT 5;
+
+select datname, datconnlimit from pg_database;
+
