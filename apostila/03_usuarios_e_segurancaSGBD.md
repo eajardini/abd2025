@@ -1,6 +1,6 @@
 # Segurança do SGBD PostgreSQL: Usuários e Direitos de Acesso
 
-## 3.1 INTRODUÇÃO  
+## INTRODUÇÃO  
 
 Para os exemplos desse capítulo, deve ser ter o script que criam as tabelas do curso.
 Uma das características que um SGBD deve possuir é o controle de acesso aos dados feito pelos usuário. O SGBD não pode deixar que usuários sem autorização acessem as informações de responsabilidade dele.  
@@ -36,3 +36,26 @@ from vendedor
 where senha = md5('123456');
 ```
 
+## MANIPULAÇÃO DE USUÁRIOS
+No PostgreSQL, o conceito de usuário é incorporado ao de **Role**. *Role* (papel), grupos de usuários com determinadas permissões. Já os usuários são papéis com senha e que podem se conectar ao Postgre.  
+
+Quando se cria um usuário, esta se criando um role. Nós podemos criar um usuário, alterar suas propriedades e removê-lo.
+
+### Criação de Usuários
+
+A sintaxe para se criar usuário é:  
+```sql
+CREATE USER usuário
+WITH PASSWORD 'postdba';
+```
+
+O CREATE USER é um **aliás** para CREATE ROLE.
+
+Assim, para criarmos um usuário de nome pauloafonso procedemos:  
+```sql
+CREATE USER useraula01
+WITH PASSWORD 'postdba';
+```
+
+Outra maneira de vermos os usuários cadastrados é executando a consulta:
+select * from pg_user;
