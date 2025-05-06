@@ -51,7 +51,7 @@ WITH PASSWORD 'postdba';
 
 O CREATE USER é um **aliás** para CREATE ROLE.
 
-Assim, para criarmos um usuário de nome pauloafonso procedemos:  
+Assim, para criarmos um usuário de nome useraula01 procedemos:  
 ```sql
 CREATE USER useraula01
 WITH PASSWORD 'postdba';
