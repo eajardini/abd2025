@@ -71,7 +71,14 @@ Para fazer login com o usuário *useraula01* com o psql, digitamos:
 ```sql
 psql -h 172.17.0.1 -U useraula01 -d postgres
 ```
-**Atenção**: O usário vai conseguir entrar no *psql*, mas não visualizar o conteúdo das tabelas.  
+**Atenção**: O usário vai conseguir entrar no *psql*, mas não visualizar o conteúdo das tabelas. 
+
+
+Para sabermos qual **usuário está conectado** no psql, use o comando:
+```sql
+select current_user;
+```
+
 
 ### Alteração De Usuário
 
