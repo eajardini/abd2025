@@ -219,9 +219,9 @@ Trabalhando com usuário e privilégios
 4. Você ficou ficou encarregado de criar o ambiente para a instalação de um software de controle de processos empresariais denominado SIGASYS cujo proprietário seja o usuário postgre. Assim, crie um banco de dados
 denominado de SIGASYS e execute nele o script da base de dados da disciplina.  
 5. Uma vez criado o ambiente no exercício anterior, você irá executar as seguintes tarefas:  
-   a. Criar um usuário denominado ”secretaria” que possui somente o direito de visualizar os dados das tabelas de CLIENTE e VENDEDORES. Ela não deverá poder criar, atualizar ou deletar nenhum objeto do banco.  
-   b. Criar um usuário denominado vendedor que possui os direitos de atualizar, criar e visualizar os dados na tabela de CLIENTE; criar, atualizar, visualizar e apagar dados da tabela de PEDIDO, atualizar, criar e visualizar os dados na tabela de ITEM_PEDIDO e atualizar e visualizar dados da tabela PRODUTO.  
-   c. Criar um usuário gerente podendo visualizar, inserir, atualizar e deletar dados das tabelas do banco de dados SIGASYS.  
+   a. Criar um usuário denominado *secretaria* que possui somente o direito de visualizar os dados das tabelas de CLIENTE e VENDEDORES. Ela não deverá poder criar, atualizar ou deletar nenhum objeto do banco.  
+   b. Criar um usuário denominado *vendedor* que possui os direitos de atualizar, criar e visualizar os dados na tabela de CLIENTE; criar, atualizar, visualizar e apagar dados da tabela de PEDIDO, atualizar, criar e visualizar os dados na tabela de ITEM_PEDIDO e atualizar e visualizar dados da tabela PRODUTO.  
+   c. Criar um usuário *gerente* podendo visualizar, inserir, atualizar e deletar dados das tabelas do banco de dados SIGASYS.  
 6. Revogue os direitos do usuário *secretaria*.  
 7. Crie um database de nome dbvendedor cujo proprietário seja o usuário vendedor já criado anteriormente. Após criar o database, entre nele com o usuário vendedor e crie uma tabela qualquer.  
 8. Apague (drop) o usuário userexe1. Caso ele possua objetos, atribua a propriedade a outro usuário.
