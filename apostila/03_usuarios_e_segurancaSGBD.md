@@ -41,7 +41,7 @@ No PostgreSQL, o conceito de usuário é incorporado ao de **Role**. *Role* (pap
 
 Quando se cria um usuário, esta se criando um role. Nós podemos criar um usuário, alterar suas propriedades e removê-lo.
 
-### Criação de Usuários
+### Criação e visualização de Usuários
 
 A sintaxe para se criar usuário é:  
 ```sql
@@ -57,5 +57,17 @@ CREATE USER useraula01
 WITH PASSWORD 'postdba';
 ```
 
-Outra maneira de vermos os usuários cadastrados é executando a consulta:
+**Para visualizar** os usuários (roles) cadastrados no sistema, usamos o comando:
+```sql
+\du
+```
+
+Outra maneira de visualizar os usuários cadastrados é executando a consulta:
+```sql
 select * from pg_user;
+```
+
+Para fazer login com o usuário *useraula01* com o psql, digitamos:  
+```sql
+psql -h 172.17.0.1 -U useraula01 -d postgres
+```
