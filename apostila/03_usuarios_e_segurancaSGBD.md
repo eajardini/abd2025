@@ -89,7 +89,7 @@ opções
 ```
 #### Exemplos
 
-* **Exemplo 01**: Para trocar a senha de um usuário  
+* **Exemplo 01**: Para trocar a senha do usuário *useraula01*, com o usuário *postgres* digite:
 ```sql  
 ALTER USER useraula01 WITH PASSWORD '123456';
 ```
