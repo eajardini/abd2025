@@ -10,11 +10,13 @@ create DATABASE BDTEMP2
   ENCODING 'UTF-8'
   TABLESPACE TSTEMP2;
 
-4) SELECT table_name,pg_relation_size(table_name) as size
-FROM information_schema.tables
-WHERE table_schema NOT IN ('information_schema', 'pg_catalog')
-ORDER BY size DESC
-LIMIT 5;
+4) select table_name,
+pg_size_pretty(pg_total_relation_size(quote_ident(table_name))) as "Tam KB",
+pg_total_relation_size(quote_ident(table_name)) as "Tam Byte"
+from information_schema.tables
+where table_schema = 'public'
+order by 3 desc
+limit 5;
 
 5) drop database BDTEMP2;
    drop TABLESPACE TSTEMP2;
