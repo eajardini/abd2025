@@ -14,7 +14,7 @@ Para saber quais usuários o Postgres possui digite:
 select usename,passwd from pg_shadow;
 ```
 
-Note que as senhas dos usuários aparecem criptografas pelo padrão MD5. Além disso, é na tabela pg_shadow o SGBD Postgres armazena os usuários cadastrados nele.  
+Note que as senhas dos usuários aparecem criptografas pelo padrão BCrypt. Além disso, é na tabela pg_shadow o SGBD Postgres armazena os usuários cadastrados nele.  
 Se precisar saber quais usuários tem direito de DBA, faça a consulta:
 ```sql
 select usename,usesuper from pg_shadow;
