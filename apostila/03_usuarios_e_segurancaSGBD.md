@@ -20,4 +20,19 @@ Se precisar saber quais usuários tem direito de DBA, faça a consulta:
 select usename,usesuper from pg_shadow;
 ```
 
+**Dica**: para criptografar um campo senha do tipo *varchar*, use a função **md5()**. Veja como fazemos para inserir e recuperar uma senha criptografada com MD5:  
+
+- Inserindo:
+  
+```sql
+  insert into vendedor values (320, 'Amarildo', 6700, 'A', md5('123456'));
+```
+
+- Recuperando:
+  
+```sql
+select nome_vendedor, senha
+from vendedor
+where senha = md5('123456');
+```
 
